@@ -200,6 +200,7 @@ class ItemScreenState extends State<ItemScreen> {
                   ],
                 ),
                 Card(
+                  margin: EdgeInsets.all(8),
                   elevation: 0,
                   color: Colors.black.withOpacity(0.6),
                   shape: RoundedRectangleBorder(
