@@ -19,7 +19,16 @@ class CartScreenState extends State<CartScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-
+                SizedBox(height: 16),
+                Text(
+                  "Корзина",
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 16)
               ],
             ),
           ),
