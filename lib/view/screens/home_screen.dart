@@ -68,7 +68,14 @@ class HomeScreenState extends State<HomeScreen> {
                               imageUrl: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg",
                               cost: "70000",
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (builder) => ItemScreen(item: CatalogItem(id: 0, name: "Золотой браслет", shortDesc: "Золото 100 грамм 999 пробы", description: "Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы", price: "70000", categories: ["Браслеты", "Золото"], brand: "Длинное название компании", weight: 10, rating: 5.0, material: "Золото", image: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg"))));
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (builder) => ItemScreen(
+                                        item: CatalogItem(
+                                            id: 0,
+                                            name: "Золотой браслет",
+                                            shortDesc: "Золото 100 грамм 999 пробы",
+                                            description: "Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы",
+                                            price: "70000", categories: ["Браслеты", "Золото"], brand: "Длинное название компании", weight: 10, rating: 5.0, material: "Золото", image: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg"))));
                               }
                           );
                         })
