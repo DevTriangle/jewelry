@@ -79,9 +79,9 @@ class CartItem extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 10),
                         Text(
-                          "${cartItem.price} ₽",
+                          "${int.parse(cartItem.price) * cartItem.count} ₽",
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18),
                         )
@@ -90,7 +90,7 @@ class CartItem extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,7 +196,8 @@ class CartItem extends StatelessWidget {
                                 ],
                               ),
                             ),
-                          ))
+                          )
+                      )
                     ],
                   )
                 ],

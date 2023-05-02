@@ -78,7 +78,6 @@ class AuthScreenState extends State<AuthScreen> {
                             fontSize: 16,
                             color: Colors.white
                         ),
-                        contentPadding: const EdgeInsets.all(12),
                       ),
                     ),
                   ],

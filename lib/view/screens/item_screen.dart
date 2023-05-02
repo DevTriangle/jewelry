@@ -5,6 +5,9 @@ import 'package:jewelry/model/catalog_item.dart';
 import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/widgets/app_button.dart';
 
+import '../../model/cart_item.dart';
+import '../../utils/cart_service.dart';
+
 class ItemScreen extends StatefulWidget {
   final CatalogItem item;
 
@@ -15,19 +18,32 @@ class ItemScreen extends StatefulWidget {
 }
 
 class ItemScreenState extends State<ItemScreen> {
+  List<AppCartItem> cart = [];
+
+  late Future<List<AppCartItem>> getCart;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getCart = loadCart();
+  }
+
+  Future<List<AppCartItem>> loadCart() async {
+    var c = await CartService().getCart();
+
+    if (c.isNotEmpty) {
+      cart.addAll(c);
+    }
+
+    return cart;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SafeArea(
         child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [],
-            ),
-          ),
           body: SingleChildScrollView(
             child: Stack(
               children: [
@@ -67,8 +83,7 @@ class ItemScreenState extends State<ItemScreen> {
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)
-                                ),
+                                    color: Colors.black.withOpacity(0.6)),
                               ),
                               Builder(builder: (builder) {
                                 List<Widget> widgets = [];
@@ -76,11 +91,13 @@ class ItemScreenState extends State<ItemScreen> {
                                 for (int i = 1; i <= 5; i++) {
                                   if (i <= widget.item.rating) {
                                     widgets.add(
-                                      Icon(Icons.star_rounded, color: Colors.amber),
+                                      Icon(Icons.star_rounded,
+                                          color: Colors.amber),
                                     );
                                   } else {
                                     widgets.add(
-                                      Icon(Icons.star_rounded, color: AppColors.cardColor),
+                                      Icon(Icons.star_rounded,
+                                          color: AppColors.cardColor),
                                     );
                                   }
                                 }
@@ -92,16 +109,38 @@ class ItemScreenState extends State<ItemScreen> {
                               })
                             ],
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Row(
                             children: [
                               Expanded(
-                                child: AppButton(
-                                  onTap: () {
+                                child: FutureBuilder(
+                                  future: getCart,
+                                  builder: (b, snapshot) {
+                                    int index = cart.indexWhere((element) => element.id == widget.item.id);
 
+                                    return AppButton(
+                                      onTap: () {
+                                        if (index == -1) {
+                                          cart.add(AppCartItem(
+                                              id: widget.item.id,
+                                              name: widget.item.name,
+                                              description:
+                                              widget.item.shortDesc,
+                                              count: 1,
+                                              price: widget.item.price,
+                                              image: widget.item.image));
+                                        } else {
+                                          cart.removeAt(index);
+                                        }
+
+                                        CartService().saveCart(cart);
+
+                                        setState(() {});
+                                      },
+                                      label: index == -1 ? "Добавить в корзину (${widget.item.price} ₽)" : "Убрать из корзины",
+                                      contentPadding: EdgeInsets.all(14),
+                                    );
                                   },
-                                  label: "Добавить в корзину (${widget.item.price} ₽)",
-                                  contentPadding: EdgeInsets.all(14),
                                 ),
                               ),
                             ],
@@ -193,7 +232,9 @@ class ItemScreenState extends State<ItemScreen> {
                               ),
                             ]),
                           ),
-                          SizedBox(height: 20,)
+                          SizedBox(
+                            height: 20,
+                          )
                         ],
                       ),
                     )
@@ -207,7 +248,9 @@ class ItemScreenState extends State<ItemScreen> {
                       borderRadius: BorderRadius.circular(100)),
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Icon(

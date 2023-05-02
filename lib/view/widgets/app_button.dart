@@ -57,7 +57,7 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.onTap,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
     this.background = AppColors.primary,
     required this.label,
     this.style = const TextStyle(color: Colors.white, fontSize: 16),
