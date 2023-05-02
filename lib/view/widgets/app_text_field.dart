@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jewelry/view/colors.dart';
+import 'package:jewelry/view/shapes.dart';
 
 class AppTextField extends StatelessWidget {
   final int maxLines;
@@ -20,7 +21,7 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.hintText = "",
-    this.hintStyle = TextStyle(
+    this.hintStyle = const TextStyle(
       color: AppColors.hintColor
     )
   });
@@ -40,11 +41,11 @@ class AppTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: hintStyle,
         border: OutlineInputBorder(
-          borderSide: BorderSide(
+          borderSide: const BorderSide(
             color: Colors.transparent,
             width: 0
           ),
-          borderRadius: BorderRadius.circular(16.0)
+          borderRadius: AppShapes.borderRadius
         )
       ),
     );
