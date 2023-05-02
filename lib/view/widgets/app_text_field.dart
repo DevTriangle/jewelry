@@ -12,8 +12,14 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final String hintText;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
   final TextStyle hintStyle;
   final EdgeInsets contentPadding;
+  final String? prefixText;
+  final TextStyle prefixStyle;
+  final TextStyle textStyle;
+  final TextAlign textAlign;
 
   const AppTextField({
     super.key,
@@ -27,7 +33,21 @@ class AppTextField extends StatelessWidget {
     this.hintStyle = const TextStyle(
       color: AppColors.hintColor
     ),
-    this.contentPadding = const EdgeInsets.all(16)
+    this.contentPadding = const EdgeInsets.all(12),
+    this.textInputType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
+    this.prefixText,
+    this.prefixStyle = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      color: Colors.black
+    ),
+    this.textStyle = const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.normal,
+      color: Colors.black
+    ),
+    this.textAlign = TextAlign.start
   });
 
   @override
@@ -37,6 +57,10 @@ class AppTextField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
+      style: textStyle,
+      textAlign: textAlign,
+      keyboardType: textInputType,
+      textInputAction: textInputAction,
       cursorColor: AppColors.primary,
       decoration: InputDecoration(
         filled: true,
@@ -46,6 +70,8 @@ class AppTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
         hintText: hintText,
         hintStyle: hintStyle,
+        prefixText: prefixText,
+        prefixStyle: prefixStyle,
         contentPadding: contentPadding,
         border: OutlineInputBorder(
           borderSide: const BorderSide(
