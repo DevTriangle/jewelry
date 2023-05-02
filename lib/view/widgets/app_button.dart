@@ -12,9 +12,11 @@ class AppTextButton extends StatelessWidget {
   final TextStyle style;
   final TextAlign textAlign;
 
-  const AppTextButton({super.key,
+  const AppTextButton({
+    super.key,
     required this.onTap,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    this.contentPadding =
+        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     required this.label,
     this.style = const TextStyle(color: AppColors.primary, fontSize: 16),
     this.textAlign = TextAlign.center,
@@ -51,33 +53,32 @@ class AppButton extends StatelessWidget {
   final TextStyle style;
   final TextAlign textAlign;
 
-  const AppButton({super.key,
+  const AppButton({
+    super.key,
     required this.onTap,
-    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    this.contentPadding =
+        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     this.background = AppColors.primary,
     required this.label,
-    this.style = const TextStyle(color: AppColors.primary, fontSize: 16),
+    this.style = const TextStyle(color: Colors.white, fontSize: 16),
     this.textAlign = TextAlign.center,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      color: background,
-      shape: AppShapes.roundedRectangleShape,
+    return ElevatedButton(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
+        backgroundColor: MaterialStateProperty.all(background),
+        shape: MaterialStateProperty.all(AppShapes.roundedRectangleShape),
+        padding: MaterialStateProperty.all(contentPadding)
+      ),
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: contentPadding,
-          child: Text(
-            label,
-            style: style,
-            textAlign: textAlign,
-          ),
-        ),
+      onPressed: onTap,
+      child: Text(
+        label,
+        style: style,
+        textAlign: textAlign,
       ),
     );
   }

@@ -33,31 +33,43 @@ class AuthScreenState extends State<AuthScreen> {
               ],
             ),
           ),
-          body: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.auth_title,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.auth_title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  AppLocalizations.of(context)!.auth_desc,
+                  style: TextStyle(
+                      fontSize: 14, color: Colors.black.withOpacity(0.5)),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        onTap: () {},
+                        label: "Получить код",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.white),
+                        contentPadding: EdgeInsets.all(12),
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.auth_desc,
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black.withOpacity(0.5)),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 16),
-                ],
-              )
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
