@@ -33,19 +33,19 @@ class AppTextField extends StatelessWidget {
     this.hintStyle = const TextStyle(
       color: AppColors.hintColor
     ),
-    this.contentPadding = const EdgeInsets.all(12),
+    this.contentPadding = const EdgeInsets.only(top: 14, left: 14, right: 14, bottom: 14),
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.prefixText,
     this.prefixStyle = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: FontWeight.normal,
       color: Colors.black
     ),
     this.textStyle = const TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       fontWeight: FontWeight.normal,
-      color: Colors.black
+      color: Colors.black,
     ),
     this.textAlign = TextAlign.start
   });
@@ -53,12 +53,14 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textCapitalization: TextCapitalization.sentences,
       onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
       style: textStyle,
       textAlign: textAlign,
+      textAlignVertical: TextAlignVertical.center,
       keyboardType: textInputType,
       textInputAction: textInputAction,
       cursorColor: AppColors.primary,
