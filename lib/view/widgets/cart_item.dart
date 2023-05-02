@@ -38,7 +38,7 @@ class CartItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    height: 120,
+                    height: 92,
                     child: AspectRatio(
                       aspectRatio: 1,
                       child: Card(
