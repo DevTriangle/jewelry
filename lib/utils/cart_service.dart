@@ -17,10 +17,14 @@ class CartService {
 
     final js = sharedPreferences.getString("cart");
 
-    Iterable list = json.decode(js!);
+    if (js != null) {
+      Iterable list = json.decode(js);
 
-    List<AppCartItem> cart = List.from(list.map((e) => AppCartItem.fromJson(e)));
+      List<AppCartItem> cart = List.from(list.map((e) => AppCartItem.fromJson(e)));
 
-    return cart;
+      return cart;
+    }
+
+    return List.empty();
   }
 }

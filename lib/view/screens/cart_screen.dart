@@ -42,50 +42,49 @@ class CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: Container(
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Корзина",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              ],
+        child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(50),
+              child: Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Корзина",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20, top: 16),
-                  child: Column(
-                    children: [
-                      FutureBuilder(
-                          future: getCart,
-                          builder: (builder, snapshot) {
-                            if (snapshot.hasData) {
-                              if (snapshot.data?.isNotEmpty == true) {
-                                int sum = 0;
+            body: FutureBuilder(
+                future: getCart,
+                builder: (builder, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data?.isNotEmpty == true) {
+                      int sum = 0;
 
-                                for (var c in cart) {
-                                  sum += c.count * int.parse(c.price);
-                                }
+                      for (var c in cart) {
+                        sum += c.count * int.parse(c.price);
+                      }
 
-                                return Column(
+                      return Stack(
+                        children: [
+                          Positioned.fill(
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 16),
+                                child: Column(
                                   children: [
                                     ListView.builder(
                                         physics: NeverScrollableScrollPhysics(),
@@ -126,50 +125,51 @@ class CartScreenState extends State<CartScreen> {
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20))
                                       ],
-                                    )
+                                    ),
                                   ],
-                                );
-                              } else {
-                                return const Center(
-                                  child: Text("Коризина пуста!"),
-                                );
-                              }
-                            } else {
-                              return SizedBox();
-                            }
-                          }),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            PositionedDirectional(
-                bottom: 0, start: 0, end: 0,
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  color: AppColors.primary,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0)),
-                  child: InkWell(
-                    onTap: () {
-
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-                      child: Text(
-                        "Перейти к оформлению заказа",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ))
-          ],
-        ),
-      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          cart.isNotEmpty
+                              ? PositionedDirectional(
+                                  bottom: 0,
+                                  start: 0,
+                                  end: 0,
+                                  child: Card(
+                                    margin: EdgeInsets.zero,
+                                    color: AppColors.primary,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0)),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 24),
+                                        child: Text(
+                                          "Перейти к оформлению заказа",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ))
+                              : SizedBox()
+                        ],
+                      );
+                    } else {
+                      return const Center(
+                        child: Text("Коризина пуста!"),
+                      );
+                    }
+                  } else {
+                    return SizedBox();
+                  }
+                })
+        )
     );
   }
 }
