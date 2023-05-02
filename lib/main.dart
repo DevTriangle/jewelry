@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/screens/auth_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +15,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jewelry',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        primaryColor: AppColors.primary,
+        cardColor: AppColors.cardColor,
+        scaffoldBackgroundColor: AppColors.background,
+        backgroundColor: AppColors.background
       ),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: AuthScreen(),
     );
   }
