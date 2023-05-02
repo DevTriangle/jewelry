@@ -5,7 +5,7 @@ class CatalogItem {
   final String name;
   final String shortDesc;
   final String description;
-  final double price;
+  final String price;
   final List<String> categories;
   final String brand;
   final double weight;
