@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Jewelry',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: true,
+        useMaterial3: false,
         primaryColor: AppColors.primary,
         cardColor: AppColors.cardColor,
         scaffoldBackgroundColor: AppColors.background,

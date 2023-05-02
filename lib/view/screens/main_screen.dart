@@ -28,6 +28,7 @@ class MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: SafeArea(
         child: Scaffold(
           bottomNavigationBar: Card(

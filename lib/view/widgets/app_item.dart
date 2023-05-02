@@ -5,12 +5,16 @@ import 'package:jewelry/view/shapes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class AppItem extends StatelessWidget {
+  final String label;
+  final String description;
   final String imageUrl;
   final String cost;
   final Function() onTap;
 
   const AppItem({
     super.key,
+    required this.label,
+    required this.description,
     required this.imageUrl,
     required this.cost,
     required this.onTap,
@@ -19,23 +23,68 @@ class AppItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
-      color: AppColors.cardColor,
+      color: Colors.white,
+      elevation: 8,
+      shadowColor: Colors.black.withOpacity(0.25),
       shape: AppShapes.roundedRectangleShape,
       clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: onTap,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-                imageUrl: imageUrl
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: CachedNetworkImage(
+                        imageUrl: imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 5),
-            Text(
-              cost,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                left: 12, right: 16,
+                bottom: 8
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    description,
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w400,
+                      color: AppColors.hintColor
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    "$cost ₽",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

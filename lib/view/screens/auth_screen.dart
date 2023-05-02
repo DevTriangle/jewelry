@@ -19,7 +19,6 @@ class AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
