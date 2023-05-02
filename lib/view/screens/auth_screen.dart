@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/widgets/AppButton.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -21,16 +23,40 @@ class AuthScreenState extends State<AuthScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                AppTextButton(
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: AppTextButton(
                     onTap: () {},
                     label: "Пропустить",
+                  ),
                 )
               ],
             ),
           ),
-          body: Column(
+          body: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.auth_title,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.auth_desc,
+                    style: TextStyle(
+                        fontSize: 14, color: Colors.black.withOpacity(0.5)),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16),
+                ],
+              )
             ],
           ),
         ),

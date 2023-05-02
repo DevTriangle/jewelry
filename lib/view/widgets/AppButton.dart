@@ -23,7 +23,51 @@ class AppTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      color: Colors.transparent,
       shape: AppShapes.roundedRectangleShape,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: contentPadding,
+          child: Text(
+            label,
+            style: style,
+            textAlign: textAlign,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AppButton extends StatelessWidget {
+  final Function() onTap;
+  final EdgeInsets contentPadding;
+  final Color background;
+  final String label;
+  final TextStyle style;
+  final TextAlign textAlign;
+
+  const AppButton({super.key,
+    required this.onTap,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    this.background = AppColors.primary,
+    required this.label,
+    this.style = const TextStyle(color: AppColors.primary, fontSize: 16),
+    this.textAlign = TextAlign.center,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      color: background,
+      shape: AppShapes.roundedRectangleShape,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Padding(
