@@ -5,7 +5,7 @@ import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/shapes.dart';
 
 class AppTextField extends StatelessWidget {
-  final Function() onChanged;
+  final Function(String) onChanged;
   final int maxLines;
   final int? minLines;
   final int? maxLength;
@@ -33,6 +33,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
@@ -70,5 +71,4 @@ class AppTextField extends StatelessWidget {
       ),
     );
   }
-
 }
