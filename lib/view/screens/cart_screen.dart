@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:jewelry/model/cart_item.dart';
 import 'package:jewelry/utils/cart_service.dart';
 import 'package:jewelry/view/widgets/cart_item.dart';
 
@@ -16,9 +17,9 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
-  List<CatalogItem> cart = [];
+  List<AppCartItem> cart = [];
 
-  late Future<List<CatalogItem>> getCart;
+  late Future<List<AppCartItem>> getCart;
 
   @override
   void initState() {
@@ -27,22 +28,12 @@ class CartScreenState extends State<CartScreen> {
     getCart = loadCart();
   }
 
-  Future<List<CatalogItem>> loadCart() async {
-    cart.addAll(await CartService().getCart());
+  Future<List<AppCartItem>> loadCart() async {
+    var c = await CartService().getCart();
 
-    cart.add(CatalogItem(
-        id: 1,
-        name: "name",
-        shortDesc: "shortDesc",
-        description: "description",
-        price: "20000",
-        categories: [],
-        brand: "brand",
-        weight: 20,
-        material: "material",
-        image:
-            "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg",
-        rating: 5));
+    if (c.isNotEmpty) {
+      cart.addAll(c);
+    }
 
     return cart;
   }
@@ -88,7 +79,23 @@ class CartScreenState extends State<CartScreen> {
                               physics: BouncingScrollPhysics(),
                               itemCount: cart.length,
                               itemBuilder: (c, index) {
-                                return CartItem(catalogItem: cart[index]);
+                                return CartItem(
+                                  cartItem: cart[index],
+                                  onDeleteClick: (item) {
+                                    setState(() {
+                                      cart.remove(item);
+                                    });
+
+                                    CartService().saveCart(cart);
+                                  },
+                                  onChange: (item) {
+                                    setState(() {
+                                      cart[index] = item;
+                                    });
+
+                                    CartService().saveCart(cart);
+                                  },
+                                );
                               }),
                         );
                       } else {
@@ -97,7 +104,7 @@ class CartScreenState extends State<CartScreen> {
                         );
                       }
                     } else {
-                      return Text("data");
+                      return SizedBox();
                     }
                   })
             ],
