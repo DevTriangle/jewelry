@@ -1,23 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jewelry/model/cart_item.dart';
 import 'package:jewelry/model/catalog_item.dart';
 import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/shapes.dart';
+import 'package:jewelry/view/widgets/app_button.dart';
 
 class CartItem extends StatelessWidget {
-  final CatalogItem catalogItem;
+  final AppCartItem cartItem;
+  final Function(AppCartItem) onDeleteClick;
+  final Function(AppCartItem) onChange;
 
-  const CartItem({super.key, required this.catalogItem});
+  const CartItem({super.key, required this.cartItem, required this.onDeleteClick, required this.onChange});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 0.5, color: Colors.black.withOpacity(0.1))
-        )
-      ),
+          border: Border(
+              bottom: BorderSide(
+                  width: 0.5, color: Colors.black.withOpacity(0.1)))),
       child: Card(
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -26,44 +29,177 @@ class CartItem extends StatelessWidget {
         shadowColor: Colors.black.withOpacity(0.3),
         clipBehavior: Clip.antiAlias,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Row(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: 120,
-                child: AspectRatio(
-                  aspectRatio: 1,
-                  child: Card(
-                    elevation: 0,
-                    shape: AppShapes.roundedRectangleShape,
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: CachedNetworkImage(
-                      imageUrl: catalogItem.image,
-                      fit: BoxFit.cover,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 120,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Card(
+                        elevation: 0,
+                        shape: AppShapes.smallRoundedRectangleShape,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        child: CachedNetworkImage(
+                          imageUrl: cartItem.image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(catalogItem.name, style: TextStyle(fontSize: 18)),
-                        const SizedBox(height: 4),
-                        Text(catalogItem.shortDesc, style: TextStyle(fontSize: 16, color: AppColors.hintColor)),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(cartItem.name,
+                                      style: TextStyle(fontSize: 18)),
+                                  const SizedBox(height: 4),
+                                  Text(cartItem.description,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: AppColors.hintColor)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          "${cartItem.price} ₽",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 18),
+                        )
                       ],
                     ),
-                    Text("${catalogItem.price} ₽", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),)
-                  ],
-                ),
+                  )
+                ],
+              ),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Card(
+                      elevation: 0,
+                      margin: EdgeInsets.zero,
+                      color: Colors.transparent,
+                      shape: AppShapes.smallRoundedRectangleShape,
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: () {
+                          onDeleteClick(cartItem);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.remove,
+                                color: AppColors.hintColor,
+                                size: 18,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                "Удалить",
+                                style: TextStyle(color: AppColors.hintColor),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                  Row(
+                    children: [
+                      Card(
+                          elevation: 0,
+                          margin: EdgeInsets.zero,
+                          color: Colors.transparent,
+                          shape: AppShapes.smallRoundedRectangleShape,
+                          clipBehavior: Clip.antiAlias,
+                          child: InkWell(
+                            onTap: cartItem.count > 1 ? () {
+                              onChange(AppCartItem(
+                                  id: cartItem.id,
+                                  name: cartItem.name,
+                                  description: cartItem.description,
+                                  count: cartItem.count - 1,
+                                  price: cartItem.price,
+                                  image: cartItem.image));
+                            } : null,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.remove_rounded,
+                                    color: AppColors.hintColor,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )),
+                      SizedBox(width: 4),
+                      Text(
+                        cartItem.count.toString(),
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.hintColor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      SizedBox(width: 4),
+                      Card(
+                          elevation: 0,
+                          margin: EdgeInsets.zero,
+                          color: Colors.transparent,
+                          shape: AppShapes.smallRoundedRectangleShape,
+                          clipBehavior: Clip.antiAlias,
+                          child: InkWell(
+                            onTap: () {
+                              onChange(AppCartItem(
+                                  id: cartItem.id,
+                                  name: cartItem.name,
+                                  description: cartItem.description,
+                                  count: cartItem.count + 1,
+                                  price: cartItem.price,
+                                  image: cartItem.image));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.add_rounded,
+                                    color: AppColors.hintColor,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ))
+                    ],
+                  )
+                ],
               )
             ],
           ),
