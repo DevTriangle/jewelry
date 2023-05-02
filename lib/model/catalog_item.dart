@@ -1,17 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-import 'category_item.dart';
-
 class CatalogItem {
   final int id;
   final String name;
   final String shortDesc;
   final String description;
   final double price;
-  final List<CategoryItem> categories;
+  final List<String> categories;
   final String brand;
   final double weight;
   final String material;
+  final double rating;
+  final String image;
 
   CatalogItem({
     required this.id,
@@ -23,6 +23,8 @@ class CatalogItem {
     required this.brand,
     required this.weight,
     required this.material,
+    required this.rating,
+    required this.image,
   });
 
   factory CatalogItem.fromJson(Map<String, dynamic> json) {
@@ -34,7 +36,9 @@ class CatalogItem {
         categories: json["categories"],
         brand: json["brand"],
         weight: json["weight"],
+        rating: json["rating"],
         material: json["material"],
+        image: json["image"],
     );
   }
 
@@ -47,6 +51,8 @@ class CatalogItem {
     "categories": categories,
     "brand": brand,
     "weight": weight,
+    "rating": rating,
     'material': material,
+    'image': image,
   };
 }

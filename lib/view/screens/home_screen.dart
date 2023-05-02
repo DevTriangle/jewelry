@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jewelry/model/catalog_item.dart';
+import 'package:jewelry/view/screens/item_screen.dart';
 import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
 
@@ -66,7 +68,7 @@ class HomeScreenState extends State<HomeScreen> {
                               imageUrl: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg",
                               cost: "70000",
                               onTap: () {
-
+                                Navigator.push(context, MaterialPageRoute(builder: (builder) => ItemScreen(item: CatalogItem(id: 0, name: "name", shortDesc: "shortDesc", description: "description", price: 70000, categories: ["name", "name2"], brand: "brand", weight: 10, rating: 5.0, material: "material", image: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg"))));
                               }
                           );
                         })
