@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry/view/colors.dart';
+import 'package:jewelry/view/screens/main_screen.dart';
 import 'package:jewelry/view/widgets/app_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,7 +27,9 @@ class AuthScreenState extends State<AuthScreen> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: AppTextButton(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (builder) => MainScreen()));
+                    },
                     label: "Пропустить",
                   ),
                 )
