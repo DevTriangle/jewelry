@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jewelry/view/screens/auth_screen.dart';
 import 'package:jewelry/view/screens/main_screen.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/app_button.dart';
 
@@ -45,6 +46,14 @@ class CodeScreenState extends State<CodeScreen> {
         }
       });
     });
+  }
+
+  Future<void> savePhone(String phone) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    sharedPreferences.setString("phone", phone);
+
+    Navigator.push(context, MaterialPageRoute(builder: (builder) => MainScreen()));
   }
 
   @override
@@ -198,7 +207,7 @@ class CodeScreenState extends State<CodeScreen> {
                         }
 
                         if (code.length == 1) {
-                          Navigator.push(context, MaterialPageRoute(builder: (builder) => MainScreen()));
+                          savePhone(widget.phone);
                           FocusScope.of(context).unfocus();
                         } else if (code.isEmpty) {
                           FocusScope.of(context).previousFocus();

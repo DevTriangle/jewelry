@@ -46,7 +46,7 @@ class AppTextButton extends StatelessWidget {
 }
 
 class AppButton extends StatelessWidget {
-  final Function() onTap;
+  final Function()? onTap;
   final EdgeInsets contentPadding;
   final Color background;
   final String label;
@@ -55,7 +55,7 @@ class AppButton extends StatelessWidget {
 
   const AppButton({
     super.key,
-    required this.onTap,
+    this.onTap,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
     this.background = AppColors.primary,
@@ -68,11 +68,10 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        elevation: MaterialStateProperty.all(0),
-        backgroundColor: MaterialStateProperty.all(background),
-        shape: MaterialStateProperty.all(AppShapes.roundedRectangleShape),
-        padding: MaterialStateProperty.all(contentPadding)
-      ),
+          elevation: MaterialStateProperty.all(0),
+          backgroundColor: MaterialStateProperty.all(background),
+          shape: MaterialStateProperty.all(AppShapes.roundedRectangleShape),
+          padding: MaterialStateProperty.all(contentPadding)),
       clipBehavior: Clip.antiAlias,
       onPressed: onTap,
       child: Text(
