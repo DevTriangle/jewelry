@@ -62,7 +62,9 @@ class AuthScreenState extends State<AuthScreen> {
                     onChanged: (text) {
                       _phone = text;
                     },
-                  prefixText: "+7",
+                    hintText: "(900) 123 45 67",
+                    prefixText: "+7 ",
+                    maxLength: 10,
                 ),
                 SizedBox(height: 8),
                 Row(
