@@ -68,12 +68,31 @@ class CartItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(cartItem.name,
-                                      style: TextStyle(fontSize: 18)),
+                                      style: TextStyle(fontSize: 16)),
                                   const SizedBox(height: 4),
                                   Text(cartItem.description,
                                       style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           color: AppColors.hintColor)),
+                                  const SizedBox(height: 4),
+                                  RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text: "Размер: ",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.black.withOpacity(0.6)),
+                                      ),
+                                      TextSpan(
+                                        text: "${cartItem.size}",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                    ]),
+                                  ),
                                 ],
                               ),
                             ],
