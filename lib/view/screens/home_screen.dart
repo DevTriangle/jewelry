@@ -6,7 +6,6 @@ import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
 import 'package:jewelry/viewmodel/catalog_viewmodel.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/category_chip.dart';
 
 class HomeScreen extends StatefulWidget {
