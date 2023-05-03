@@ -22,15 +22,16 @@ class CategoryChip extends StatelessWidget {
       shape: RoundedRectangleBorder(side: BorderSide(width: 1, color: AppColors.primary), borderRadius: BorderRadius.circular(16)),
       color: isSelected ? AppColors.primary : Colors.white,
       clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.only(top: 8, bottom: 8, right: 8),
       child: InkWell(
         onTap: onTap,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               label,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 15,
                 color: isSelected ? Colors.white : Colors.black
               ),
             ),
