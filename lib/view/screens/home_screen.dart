@@ -39,7 +39,7 @@ class HomeScreenState extends State<HomeScreen> {
     return Container(
       color: Colors.white,
       child: SafeArea(
-        child: Scaffold(
+        child: Scaffold( 
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
