@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
+import 'package:jewelry/view/widgets/category_chip.dart';
 
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
@@ -11,6 +12,15 @@ class CatalogScreen extends StatefulWidget {
 
 class CatalogScreenState extends State<CatalogScreen> {
   String _searchText = "";
+
+  String _selectedCategory = "Популярное";
+  List<String> _categoryList = [
+    "Популярное",
+    "Золото",
+    "Серебро",
+    "Платина",
+    "Позолота"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +43,24 @@ class CatalogScreenState extends State<CatalogScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-
+                Container(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _categoryList.length,
+                    itemBuilder: (builder, index) {
+                      return CategoryChip(
+                        label: _categoryList[index],
+                        onTap: () {
+                          setState(() {
+                            _selectedCategory = _categoryList[index];
+                          });
+                        },
+                        isSelected: _selectedCategory == _categoryList[index]
+                      );
+                    },
+                  ),
+                )
               ],
             ),
           ),
