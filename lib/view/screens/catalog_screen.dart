@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
 import 'package:jewelry/view/widgets/category_chip.dart';
+import 'package:provider/provider.dart';
+
+import '../../viewmodel/catalog_viewmodel.dart';
 
 class CatalogScreen extends StatefulWidget {
   const CatalogScreen({super.key});
@@ -10,6 +13,15 @@ class CatalogScreen extends StatefulWidget {
 }
 
 class CatalogScreenState extends State<CatalogScreen> {
+  late CatalogViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+  }
+
   String _searchText = "";
 
   String _selectedCategory = "Популярное";

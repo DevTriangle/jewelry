@@ -4,6 +4,8 @@ import 'package:jewelry/model/catalog_item.dart';
 import 'package:jewelry/view/screens/item_screen.dart';
 import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
+import 'package:jewelry/viewmodel/catalog_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/category_chip.dart';
 
@@ -15,6 +17,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  late CatalogViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+
+    viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+  }
+
   String _selectedCategory = "Популярное";
   final List<String> _categoryList = [
     "Популярное",
@@ -22,48 +33,6 @@ class HomeScreenState extends State<HomeScreen> {
     "Серебро",
     "Платина",
     "Позолота"
-  ];
-
-  List<CatalogItem> catalog = [
-    CatalogItem(
-        id: 0,
-        name: "Золотые серьги с бриллиантами",
-        shortDesc: "shortDesc",
-        description: "qwrqerqrwqrwqr",
-        price: "93893",
-        categories: ["Позолота"],
-        brand: "brand",
-        weight: 20,
-        material: "Золото-платина",
-        rating: 4,
-        image:
-            "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
-    CatalogItem(
-        id: 0,
-        name: "Золотое кольцо с бриллиантами",
-        shortDesc: "shortDesc",
-        description: "erwrewerwerwerwerwerwer",
-        price: "141293",
-        categories: ["Серебро"],
-        brand: "brand",
-        weight: 20,
-        material: "Золото-платина",
-        rating: 4,
-        image:
-            "https://g6.sunlight.net/media/products/d300420c272d14181c5a32b4a2e58018ed092246.jpg"),
-    CatalogItem(
-        id: 0,
-        name: "name",
-        shortDesc: "shortDesc",
-        description: "wdwerewrerwerwerad",
-        price: "135255",
-        categories: ["Золото", "Платина"],
-        brand: "brand",
-        weight: 20,
-        material: "Золото-платина",
-        rating: 4,
-        image:
-            "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
   ];
 
   @override
@@ -128,8 +97,8 @@ class HomeScreenState extends State<HomeScreen> {
                       childAspectRatio: 0.8,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      children: List.generate(catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
-                        List<CatalogItem> catalogFiltered = List.from(catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
+                      children: List.generate(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
+                        List<CatalogItem> catalogFiltered = List.from(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
                         return AppItem(
                             label: catalogFiltered[index].name,
                             description: catalogFiltered[index].shortDesc,
@@ -141,7 +110,7 @@ class HomeScreenState extends State<HomeScreen> {
                                   MaterialPageRoute(
                                       builder: (builder) => ItemScreen(
                                           item: CatalogItem(
-                                              id: 0,
+                                              id: catalogFiltered[index].id,
                                               name: catalogFiltered[index].name,
                                               shortDesc: catalogFiltered[index].shortDesc,
                                               description: catalogFiltered[index].description,
