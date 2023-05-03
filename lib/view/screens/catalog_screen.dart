@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
 import 'package:jewelry/view/widgets/category_chip.dart';
@@ -14,7 +13,7 @@ class CatalogScreenState extends State<CatalogScreen> {
   String _searchText = "";
 
   String _selectedCategory = "Популярное";
-  List<String> _categoryList = [
+  final List<String> _categoryList = [
     "Популярное",
     "Золото",
     "Серебро",
@@ -24,10 +23,9 @@ class CatalogScreenState extends State<CatalogScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-          appBar: PreferredSize(
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
             preferredSize: Size.fromHeight(86),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -37,32 +35,29 @@ class CatalogScreenState extends State<CatalogScreen> {
                   _searchText = text;
                 },
               ),
-            )
-          ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                Container(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _categoryList.length,
-                    itemBuilder: (builder, index) {
-                      return CategoryChip(
+            )),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _categoryList.length,
+                  itemBuilder: (builder, index) {
+                    return CategoryChip(
                         label: _categoryList[index],
                         onTap: () {
                           setState(() {
                             _selectedCategory = _categoryList[index];
                           });
                         },
-                        isSelected: _selectedCategory == _categoryList[index]
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
+                        isSelected: _selectedCategory == _categoryList[index]);
+                  },
+                ),
+              )
+            ],
           ),
         ),
       ),

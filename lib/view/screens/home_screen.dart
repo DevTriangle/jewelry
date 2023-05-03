@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jewelry/model/catalog_item.dart';
 import 'package:jewelry/view/screens/item_screen.dart';
 import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
+
+import '../widgets/category_chip.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,6 +15,56 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  String _selectedCategory = "Популярное";
+  final List<String> _categoryList = [
+    "Популярное",
+    "Золото",
+    "Серебро",
+    "Платина",
+    "Позолота"
+  ];
+
+  List<CatalogItem> catalog = [
+    CatalogItem(
+        id: 0,
+        name: "Золотые серьги с бриллиантами",
+        shortDesc: "shortDesc",
+        description: "qwrqerqrwqrwqr",
+        price: "93893",
+        categories: ["Позолота"],
+        brand: "brand",
+        weight: 20,
+        material: "Золото-платина",
+        rating: 4,
+        image:
+            "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
+    CatalogItem(
+        id: 0,
+        name: "Золотое кольцо с бриллиантами",
+        shortDesc: "shortDesc",
+        description: "erwrewerwerwerwerwerwer",
+        price: "141293",
+        categories: ["Серебро"],
+        brand: "brand",
+        weight: 20,
+        material: "Золото-платина",
+        rating: 4,
+        image:
+            "https://g6.sunlight.net/media/products/d300420c272d14181c5a32b4a2e58018ed092246.jpg"),
+    CatalogItem(
+        id: 0,
+        name: "name",
+        shortDesc: "shortDesc",
+        description: "wdwerewrerwerwerad",
+        price: "135255",
+        categories: ["Золото", "Платина"],
+        brand: "brand",
+        weight: 20,
+        material: "Золото-платина",
+        rating: 4,
+        image:
+            "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +78,7 @@ class HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   AspectRatio(
-                    aspectRatio: 16/9,
+                    aspectRatio: 16 / 9,
                     child: PageView.builder(
                         itemCount: 2,
                         itemBuilder: (itemBuilder, index) {
@@ -38,48 +89,71 @@ class HomeScreenState extends State<HomeScreen> {
                             clipBehavior: Clip.antiAlias,
                             color: Colors.transparent,
                             child: CachedNetworkImage(
-                                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
+                              imageUrl:
+                                  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
                               fit: BoxFit.cover,
                             ),
                           );
-                        }
+                        }),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Каталог",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _categoryList.length,
+                      itemBuilder: (builder, index) {
+                        return CategoryChip(
+                            label: _categoryList[index],
+                            onTap: () {
+                              setState(() {
+                                _selectedCategory = _categoryList[index];
+                              });
+                            },
+                            isSelected:
+                                _selectedCategory == _categoryList[index]);
+                      },
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Text(
-                      "Популярные товары",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600
-                    ),
-                  ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   GridView.extent(
                       maxCrossAxisExtent: 200,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: 0.8,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: List.generate(100, (index) {
-                          return AppItem(
-                              label: "Браслет золотой",
-                              description: "Золото 100 грамм 999 пробы",
-                              imageUrl: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg",
-                              cost: "70000",
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (builder) => ItemScreen(
-                                        item: CatalogItem(
-                                            id: 0,
-                                            name: "Золотой браслет",
-                                            shortDesc: "Золото 100 грамм 999 пробы",
-                                            description: "Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы Золото 100 грамм 999 пробы",
-                                            price: "70000", categories: ["Браслеты", "Золото"], brand: "Длинное название компании", weight: 10, rating: 5.0, material: "Золото", image: "https://www.gold-fenix.ru/upload/iblock/8d4/c1nkn79xawyfh8q06ao33xnfe45dunhd.jpg"))));
-                              }
-                          );
-                        })
-                    ),
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.8,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: List.generate(catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
+                        List<CatalogItem> catalogFiltered = List.from(catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
+                        return AppItem(
+                            label: catalogFiltered[index].name,
+                            description: catalogFiltered[index].shortDesc,
+                            imageUrl: catalogFiltered[index].image,
+                            cost: catalogFiltered[index].price,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => ItemScreen(
+                                          item: CatalogItem(
+                                              id: 0,
+                                              name: catalogFiltered[index].name,
+                                              shortDesc: catalogFiltered[index].shortDesc,
+                                              description: catalogFiltered[index].description,
+                                              price: catalogFiltered[index].price,
+                                              categories: catalogFiltered[index].categories,
+                                              brand: catalogFiltered[index].brand,
+                                              weight: catalogFiltered[index].weight,
+                                              rating: catalogFiltered[index].rating,
+                                              material: catalogFiltered[index].material,
+                                              image: catalogFiltered[index].image))));
+                            });
+                      })),
                 ],
               ),
             ),
