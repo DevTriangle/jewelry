@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/shapes.dart';
 
-class CategoryChip extends StatelessWidget {
+class AppChip extends StatelessWidget {
   final String label;
   final Function() onTap;
   final bool isSelected;
 
-  const CategoryChip({
+  const AppChip({
     super.key,
     required this.label,
     required this.onTap,

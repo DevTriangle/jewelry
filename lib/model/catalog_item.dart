@@ -9,6 +9,7 @@ class CatalogItem {
   final String description;
   final String price;
   final List<String> categories;
+  final List<String> sizeList;
   final String brand;
   final double weight;
   final String material;
@@ -22,6 +23,7 @@ class CatalogItem {
     required this.description,
     required this.price,
     required this.categories,
+    required this.sizeList,
     required this.brand,
     required this.weight,
     required this.material,
@@ -37,6 +39,7 @@ class CatalogItem {
       description: json["description"],
       price: json["price"],
       categories: List<String>.from(jsonDecode(json["categories"])),
+      sizeList: List<String>.from(jsonDecode(json["sizeList"])),
       brand: json["brand"],
       weight: json["weight"],
       rating: json["rating"],
@@ -52,6 +55,7 @@ class CatalogItem {
         "description": description,
         "price": price,
         "categories": categories,
+        "sizeList": sizeList,
         "brand": brand,
         "weight": weight,
         "rating": rating,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
-import 'package:jewelry/view/widgets/category_chip.dart';
+import 'package:jewelry/view/widgets/chip.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/catalog_item.dart';
@@ -60,7 +60,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                         scrollDirection: Axis.horizontal,
                         itemCount: _categoryList.length,
                         itemBuilder: (builder, index) {
-                          return CategoryChip(
+                          return AppChip(
                               label: _categoryList[index],
                               onTap: () {
                                 setState(() {
@@ -106,6 +106,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                                             description: catalogFiltered[index].description,
                                             price: catalogFiltered[index].price,
                                             categories: catalogFiltered[index].categories,
+                                            sizeList: catalogFiltered[index].sizeList,
                                             brand: catalogFiltered[index].brand,
                                             weight: catalogFiltered[index].weight,
                                             rating: catalogFiltered[index].rating,

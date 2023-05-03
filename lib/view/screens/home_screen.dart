@@ -6,7 +6,7 @@ import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
 import 'package:jewelry/viewmodel/catalog_viewmodel.dart';
 import 'package:provider/provider.dart';
-import '../widgets/category_chip.dart';
+import '../widgets/chip.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -81,7 +81,7 @@ class HomeScreenState extends State<HomeScreen> {
                             scrollDirection: Axis.horizontal,
                             itemCount: _categoryList.length,
                             itemBuilder: (builder, index) {
-                              return CategoryChip(
+                              return AppChip(
                                   label: _categoryList[index],
                                   onTap: () {
                                     setState(() {
@@ -120,6 +120,7 @@ class HomeScreenState extends State<HomeScreen> {
                                                     description: catalogFiltered[index].description,
                                                     price: catalogFiltered[index].price,
                                                     categories: catalogFiltered[index].categories,
+                                                    sizeList: catalogFiltered[index].sizeList,
                                                     brand: catalogFiltered[index].brand,
                                                     weight: catalogFiltered[index].weight,
                                                     rating: catalogFiltered[index].rating,

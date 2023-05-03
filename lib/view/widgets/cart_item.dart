@@ -140,6 +140,7 @@ class CartItem extends StatelessWidget {
                                   id: cartItem.id,
                                   name: cartItem.name,
                                   description: cartItem.description,
+                                  size: cartItem.size,
                                   count: cartItem.count - 1,
                                   price: cartItem.price,
                                   image: cartItem.image));
@@ -179,6 +180,7 @@ class CartItem extends StatelessWidget {
                                   id: cartItem.id,
                                   name: cartItem.name,
                                   description: cartItem.description,
+                                  size: cartItem.size,
                                   count: cartItem.count + 1,
                                   price: cartItem.price,
                                   image: cartItem.image));

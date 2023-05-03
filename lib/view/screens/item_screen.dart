@@ -7,6 +7,7 @@ import 'package:jewelry/view/widgets/app_button.dart';
 
 import '../../model/cart_item.dart';
 import '../../utils/cart_service.dart';
+import '../widgets/chip.dart';
 
 class ItemScreen extends StatefulWidget {
   final CatalogItem item;
@@ -21,6 +22,8 @@ class ItemScreenState extends State<ItemScreen> {
   List<AppCartItem> cart = [];
 
   late Future<List<AppCartItem>> getCart;
+
+  String _selectedSize = "";
 
   @override
   void initState() {
@@ -110,13 +113,31 @@ class ItemScreenState extends State<ItemScreen> {
                             ],
                           ),
                           const SizedBox(height: 16),
+                          Container(
+                            height: 58,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.item.sizeList.length,
+                              itemBuilder: (builder, index) {
+                                return AppChip(
+                                    label: widget.item.sizeList[index],
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedSize = widget.item.sizeList[index];
+                                      });
+                                    },
+                                    isSelected: _selectedSize == widget.item.sizeList[index]);
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 8),
                           Row(
                             children: [
                               Expanded(
                                 child: FutureBuilder(
                                   future: getCart,
                                   builder: (b, snapshot) {
-                                    int index = cart.indexWhere((element) => element.id == widget.item.id);
+                                    int index = cart.indexWhere((element) => element.id == widget.item.id && element.size == _selectedSize);
 
                                     return AppButton(
                                       onTap: () {
@@ -124,8 +145,8 @@ class ItemScreenState extends State<ItemScreen> {
                                           cart.add(AppCartItem(
                                               id: widget.item.id,
                                               name: widget.item.name,
-                                              description:
-                                              widget.item.shortDesc,
+                                              description: widget.item.shortDesc,
+                                              size: _selectedSize,
                                               count: 1,
                                               price: widget.item.price,
                                               image: widget.item.image));
