@@ -6,7 +6,6 @@ import 'package:jewelry/view/shapes.dart';
 import 'package:jewelry/view/widgets/app_item.dart';
 import 'package:jewelry/viewmodel/catalog_viewmodel.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/category_chip.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,9 +42,10 @@ class HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
+                  const SizedBox(height: 20),
                   AspectRatio(
                     aspectRatio: 16 / 9,
                     child: PageView.builder(
@@ -65,64 +65,71 @@ class HomeScreenState extends State<HomeScreen> {
                           );
                         }),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Каталог",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    height: 50,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: _categoryList.length,
-                      itemBuilder: (builder, index) {
-                        return CategoryChip(
-                            label: _categoryList[index],
-                            onTap: () {
-                              setState(() {
-                                _selectedCategory = _categoryList[index];
-                              });
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        const Text(
+                          "Каталог",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _categoryList.length,
+                            itemBuilder: (builder, index) {
+                              return CategoryChip(
+                                  label: _categoryList[index],
+                                  onTap: () {
+                                    setState(() {
+                                      _selectedCategory = _categoryList[index];
+                                    });
+                                  },
+                                  isSelected:
+                                      _selectedCategory == _categoryList[index]);
                             },
-                            isSelected:
-                                _selectedCategory == _categoryList[index]);
-                      },
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        GridView.extent(
+                            maxCrossAxisExtent: 200,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            childAspectRatio: 0.8,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: List.generate(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
+                              List<CatalogItem> catalogFiltered = List.from(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
+                              return AppItem(
+                                  label: catalogFiltered[index].name,
+                                  description: catalogFiltered[index].shortDesc,
+                                  imageUrl: catalogFiltered[index].image,
+                                  cost: catalogFiltered[index].price,
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (builder) => ItemScreen(
+                                                item: CatalogItem(
+                                                    id: catalogFiltered[index].id,
+                                                    name: catalogFiltered[index].name,
+                                                    shortDesc: catalogFiltered[index].shortDesc,
+                                                    description: catalogFiltered[index].description,
+                                                    price: catalogFiltered[index].price,
+                                                    categories: catalogFiltered[index].categories,
+                                                    brand: catalogFiltered[index].brand,
+                                                    weight: catalogFiltered[index].weight,
+                                                    rating: catalogFiltered[index].rating,
+                                                    material: catalogFiltered[index].material,
+                                                    image: catalogFiltered[index].image))));
+                                  });
+                            })),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  GridView.extent(
-                      maxCrossAxisExtent: 200,
-                      mainAxisSpacing: 8,
-                      crossAxisSpacing: 8,
-                      childAspectRatio: 0.8,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: List.generate(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
-                        List<CatalogItem> catalogFiltered = List.from(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
-                        return AppItem(
-                            label: catalogFiltered[index].name,
-                            description: catalogFiltered[index].shortDesc,
-                            imageUrl: catalogFiltered[index].image,
-                            cost: catalogFiltered[index].price,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => ItemScreen(
-                                          item: CatalogItem(
-                                              id: catalogFiltered[index].id,
-                                              name: catalogFiltered[index].name,
-                                              shortDesc: catalogFiltered[index].shortDesc,
-                                              description: catalogFiltered[index].description,
-                                              price: catalogFiltered[index].price,
-                                              categories: catalogFiltered[index].categories,
-                                              brand: catalogFiltered[index].brand,
-                                              weight: catalogFiltered[index].weight,
-                                              rating: catalogFiltered[index].rating,
-                                              material: catalogFiltered[index].material,
-                                              image: catalogFiltered[index].image))));
-                            });
-                      })),
                 ],
               ),
             ),
