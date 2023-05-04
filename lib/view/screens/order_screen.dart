@@ -96,8 +96,13 @@ class OrderScreenState extends State<OrderScreen> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.white,
-        systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark
+        systemNavigationBarColor: _name.trim().isNotEmpty &&
+                            _phone.trim().isNotEmpty &&
+                            _mail.trim().isNotEmpty &&
+                            _selectedPaymentMethod != -1 &&
+                            _address != ""
+                        ? AppColors.primary : const Color.fromARGB(255, 183, 183, 183),
+        statusBarIconBrightness: Brightness.dark,
       ),
       child: SafeArea(
         child: Scaffold(
