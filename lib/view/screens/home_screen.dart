@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:jewelry/model/catalog_item.dart';
@@ -17,12 +19,15 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   late CatalogViewModel viewModel;
+  PageController _controller = PageController();
 
   @override
   void initState() {
     super.initState();
 
     viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+
+    startTimer();
   }
 
   String _selectedCategory = "Популярное";
@@ -34,12 +39,27 @@ class HomeScreenState extends State<HomeScreen> {
     "Позолота"
   ];
 
+  Future<void> startTimer() async {
+    Timer.periodic(const Duration(seconds: 3), (t) {
+      setState(() {
+        if (_controller.page != null) {
+          if (_controller.page! < 1) {
+            _controller.animateToPage(_controller.page!.toInt() + 1,
+                duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+          } else {
+            _controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+          }
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
       child: SafeArea(
-        child: Scaffold( 
+        child: Scaffold(
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -50,6 +70,7 @@ class HomeScreenState extends State<HomeScreen> {
                     aspectRatio: 16 / 9,
                     child: PageView.builder(
                         itemCount: 2,
+                        controller: _controller,
                         itemBuilder: (itemBuilder, index) {
                           return Card(
                             elevation: 0,
@@ -72,7 +93,8 @@ class HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 16),
                         const Text(
                           "Каталог",
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
@@ -88,8 +110,8 @@ class HomeScreenState extends State<HomeScreen> {
                                       _selectedCategory = _categoryList[index];
                                     });
                                   },
-                                  isSelected:
-                                      _selectedCategory == _categoryList[index]);
+                                  isSelected: _selectedCategory ==
+                                      _categoryList[index]);
                             },
                           ),
                         ),
@@ -101,8 +123,18 @@ class HomeScreenState extends State<HomeScreen> {
                             childAspectRatio: 0.8,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            children: List.generate(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное").length, (index) {
-                              List<CatalogItem> catalogFiltered = List.from(viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
+                            children: List.generate(
+                                viewModel.catalog
+                                    .where((element) =>
+                                        element.categories
+                                            .contains(_selectedCategory) ||
+                                        _selectedCategory == "Популярное")
+                                    .length, (index) {
+                              List<CatalogItem> catalogFiltered = List.from(
+                                  viewModel.catalog.where((element) =>
+                                      element.categories
+                                          .contains(_selectedCategory) ||
+                                      _selectedCategory == "Популярное"));
                               return AppItem(
                                   label: catalogFiltered[index].name,
                                   description: catalogFiltered[index].shortDesc,
@@ -114,16 +146,30 @@ class HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                             builder: (builder) => ItemScreen(
                                                 item: CatalogItem(
-                                                    id: catalogFiltered[index].id,
-                                                    name: catalogFiltered[index].name,
-                                                    shortDesc: catalogFiltered[index].shortDesc,
-                                                    description: catalogFiltered[index].description,
-                                                    price: catalogFiltered[index].price,
-                                                    categories: catalogFiltered[index].categories,
-                                                    sizeList: catalogFiltered[index].sizeList,
-                                                    brand: catalogFiltered[index].brand,
-                                                    weight: catalogFiltered[index].weight,
-                                                    rating: catalogFiltered[index].rating,
+                                                    id: catalogFiltered[index]
+                                                        .id,
+                                                    name: catalogFiltered[index]
+                                                        .name,
+                                                    shortDesc:
+                                                        catalogFiltered[index]
+                                                            .shortDesc,
+                                                    description:
+                                                        catalogFiltered[index]
+                                                            .description,
+                                                    price: catalogFiltered[index]
+                                                        .price,
+                                                    categories:
+                                                        catalogFiltered[index]
+                                                            .categories,
+                                                    sizeList:
+                                                        catalogFiltered[index]
+                                                            .sizeList,
+                                                    brand: catalogFiltered[index]
+                                                        .brand,
+                                                    weight: catalogFiltered[index]
+                                                        .weight,
+                                                    rating: catalogFiltered[index]
+                                                        .rating,
                                                     material: catalogFiltered[index].material,
                                                     image: catalogFiltered[index].image))));
                                   });
