@@ -299,7 +299,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     },
                     icon: Icon(
                       Icons.filter_alt_rounded,
-                      color: AppColors.iconColor,
+                      color: _filterSize == "Любой" && _filterBrand == "Любой" && _filterMaterial == "Любой" ? AppColors.iconColor : AppColors.primary,
                     ),
                   ),
                 ]),
