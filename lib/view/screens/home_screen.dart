@@ -19,7 +19,9 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   late CatalogViewModel viewModel;
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
+
+  late Timer timer;
 
   @override
   void initState() {
@@ -40,13 +42,13 @@ class HomeScreenState extends State<HomeScreen> {
   ];
 
   Future<void> startTimer() async {
-    Timer.periodic(const Duration(seconds: 3), (t) {
+    timer = Timer.periodic(const Duration(seconds: 8), (t) {
         if (_controller.page != null) {
           if (_controller.page! < 1) {
             _controller.animateToPage(_controller.page!.toInt() + 1,
-                duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+                duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
           } else {
-            _controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
+            _controller.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
           }
         }
     });
@@ -182,5 +184,11 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
   }
 }

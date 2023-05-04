@@ -30,6 +30,7 @@ class CatalogScreenState extends State<CatalogScreen> {
     "Компания 2",
     "Компания 3",
     "Компания 4",
+    "brand",
   ];
 
   final List<String> _sizeList = [
@@ -128,12 +129,30 @@ class CatalogScreenState extends State<CatalogScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 16),
-                                        Text(
-                                          "Фильтры",
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w500),
-                                          textAlign: TextAlign.center,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Фильтры",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            AppTextButton(
+                                                onTap: () {
+                                                  setModalState(() {
+                                                    _filterSize = "Любой";
+                                                    _filterBrand = "Любой";
+                                                    _filterMaterial = "Любой";
+                                                  });
+
+                                                  setState(() {});
+                                                },
+                                                label: "Сбросить"
+                                            )
+                                          ],
                                         ),
                                         SizedBox(height: 16),
                                         Text(
@@ -261,6 +280,8 @@ class CatalogScreenState extends State<CatalogScreen> {
                                                 label: "Применить",
                                                 onTap: () {
                                                   Navigator.pop(context);
+
+                                                  setState(() {});
                                                 },
                                               ),
                                             ),
@@ -278,7 +299,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     },
                     icon: Icon(
                       Icons.filter_alt_rounded,
-                      color: AppColors.iconColor,
+                      color: _filterSize == "Любой" && _filterBrand == "Любой" && _filterMaterial == "Любой" ? AppColors.iconColor : AppColors.primary,
                     ),
                   ),
                 ]),
