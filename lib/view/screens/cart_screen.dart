@@ -37,11 +37,14 @@ class CartScreenState extends State<CartScreen> {
       cart.addAll(c);
     }
 
+    setState(() {});
+
     return cart;
   }
 
   @override
   Widget build(BuildContext context) {
+    print("object");
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -49,20 +52,30 @@ class CartScreenState extends State<CartScreen> {
               child: Container(
                 height: 50,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Корзина",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
+                  children: [
+                    const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Корзина",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        )),
+                    cart.isNotEmpty ? IconButton(
+                        onPressed: () {
+                          cart.clear();
+                          CartService().saveCart(cart);
+
+                          setState(() {});
+                        },
+                        icon: const Icon(
+                          Icons.delete_rounded,
+                          size: 20,
+                        )) : const SizedBox()
                   ],
                 ),
               ),
