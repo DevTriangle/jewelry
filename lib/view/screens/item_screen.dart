@@ -113,6 +113,14 @@ class ItemScreenState extends State<ItemScreen> {
                             ],
                           ),
                           const SizedBox(height: 16),
+                          Text(
+                            "Размер",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black.withOpacity(0.6)
+                            )
+                          ),
                           Container(
                             height: 58,
                             child: ListView.builder(
