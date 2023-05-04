@@ -21,7 +21,8 @@ class CatalogScreenState extends State<CatalogScreen> {
   late CatalogViewModel viewModel;
 
   final TextEditingController _brandEditingController = TextEditingController();
-  final TextEditingController _materialEditingController = TextEditingController();
+  final TextEditingController _materialEditingController =
+      TextEditingController();
 
   final List<String> _brandList = [
     "Любой",
@@ -107,6 +108,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     onPressed: () {
                       showModalBottomSheet(
                         context: context,
+                        isScrollControlled: true,
                         elevation: 10,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
@@ -116,190 +118,17 @@ class CatalogScreenState extends State<CatalogScreen> {
                         ),
                         backgroundColor: Colors.white,
                         builder: (builder) {
-                          return StatefulBuilder(
-                              builder: (builder, setModalState) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 16),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Фильтры",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            AppTextButton(
-                                                onTap: () {
-                                                  setModalState(() {
-                                                    _filterSize = "Любой";
-                                                    _filterBrand = "Любой";
-                                                    _filterMaterial = "Любой";
-                                                  });
-
-                                                  setState(() {});
-                                                },
-                                                label: "Сбросить"
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 16),
-                                        Text(
-                                          "Размер",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black
-                                                  .withOpacity(0.6)),
-                                        ),
-                                        Container(
-                                          height: 58,
-                                          child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: _sizeList.length,
-                                            itemBuilder: (builder, index) {
-                                              return AppChip(
-                                                  label: _sizeList[index],
-                                                  onTap: () {
-                                                    setModalState(() {
-                                                      _filterSize =
-                                                          _sizeList[index];
-                                                    });
-
-                                                    setState(() {});
-                                                  },
-                                                  isSelected: _filterSize ==
-                                                      _sizeList[index]);
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(height: 4),
-                                        Text(
-                                          "Бренд",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black
-                                                  .withOpacity(0.6)),
-                                        ),
-                                        SizedBox(height: 4),
-                                        AppTextField(
-                                          onChanged: (text) {},
-                                          textEditingController: _brandEditingController,
-                                          readOnly: true,
-                                          suffixIcon: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 14),
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton<String>(
-                                                dropdownColor: Colors.white,
-                                                icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
-                                                onChanged: (item) {
-                                                  setModalState(() {
-                                                    _filterBrand = item.toString();
-
-                                                    _brandEditingController.text = item.toString();
-                                                  });
-
-                                                  setState(() {});
-                                                },
-                                                items: _brandList.map((String i) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: i,
-                                                      child: Text(
-                                                        i,
-                                                        style: TextStyle(
-                                                          fontSize: 14
-                                                        ),
-                                                      )
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 4),
-                                        Text(
-                                          "Материал",
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black
-                                                  .withOpacity(0.6)),
-                                        ),
-                                        SizedBox(height: 4),
-                                        AppTextField(
-                                          onChanged: (text) {},
-                                          textEditingController: _materialEditingController,
-                                          readOnly: true,
-                                          suffixIcon: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 14),
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton<String>(
-                                                dropdownColor: Colors.white,
-                                                icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
-                                                onChanged: (item) {
-                                                  setModalState(() {
-                                                    _filterMaterial = item.toString();
-
-                                                    _materialEditingController.text = item.toString();
-                                                  });
-
-                                                  setState(() {});
-                                                },
-                                                items: _materialList.map((String i) {
-                                                  return DropdownMenuItem<String>(
-                                                      value: i,
-                                                      child: Text(
-                                                        i,
-                                                        style: TextStyle(
-                                                            fontSize: 14
-                                                        ),
-                                                      )
-                                                  );
-                                                }).toList(),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(height: 16),
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: AppButton(
-                                                label: "Применить",
-                                                onTap: () {
-                                                  Navigator.pop(context);
-
-                                                  setState(() {});
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
+                          return buildFilterBottomSheet(context);
                         },
                       );
                     },
                     icon: Icon(
                       Icons.filter_alt_rounded,
-                      color: _filterSize == "Любой" && _filterBrand == "Любой" && _filterMaterial == "Любой" ? AppColors.iconColor : AppColors.primary,
+                      color: _filterSize == "Любой" &&
+                              _filterBrand == "Любой" &&
+                              _filterMaterial == "Любой"
+                          ? AppColors.iconColor
+                          : AppColors.primary,
                     ),
                   ),
                 ]),
@@ -342,20 +171,36 @@ class CatalogScreenState extends State<CatalogScreen> {
                         .where((element) =>
                             (element.categories.contains(_selectedCategory) ||
                                 _selectedCategory == "Популярное") &&
-                            (element.name.toLowerCase().contains(_searchText.toLowerCase()) || element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
-                            (element.sizeList.contains(_filterSize) || _filterSize == "Любой")
-                                && (element.brand == _filterBrand || _filterBrand == "Любой")
-                                && (element.material == _filterMaterial || _filterMaterial == "Любой")
-                    )
+                            (element.name
+                                    .toLowerCase()
+                                    .contains(_searchText.toLowerCase()) ||
+                                element.shortDesc
+                                    .toLowerCase()
+                                    .contains(_searchText.toLowerCase())) &&
+                            (element.sizeList.contains(_filterSize) ||
+                                _filterSize == "Любой") &&
+                            (element.brand == _filterBrand ||
+                                _filterBrand == "Любой") &&
+                            (element.material == _filterMaterial ||
+                                _filterMaterial == "Любой"))
                         .length,
                     (index) {
                       List<CatalogItem> catalogFiltered = List.from(
                           viewModel.catalog.where((element) =>
-                              (element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное") &&
-                                  (element.name.toLowerCase().contains(_searchText.toLowerCase()) || element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
-                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой") &&
-                                  (element.brand == _filterBrand || _filterBrand == "Любой") &&
-                                  (element.material == _filterMaterial || _filterMaterial == "Любой")));
+                              (element.categories.contains(_selectedCategory) ||
+                                  _selectedCategory == "Популярное") &&
+                              (element.name
+                                      .toLowerCase()
+                                      .contains(_searchText.toLowerCase()) ||
+                                  element.shortDesc
+                                      .toLowerCase()
+                                      .contains(_searchText.toLowerCase())) &&
+                              (element.sizeList.contains(_filterSize) ||
+                                  _filterSize == "Любой") &&
+                              (element.brand == _filterBrand ||
+                                  _filterBrand == "Любой") &&
+                              (element.material == _filterMaterial ||
+                                  _filterMaterial == "Любой")));
 
                       return AppItem(
                         label: catalogFiltered[index].name,
@@ -396,5 +241,175 @@ class CatalogScreenState extends State<CatalogScreen> {
         ),
       ),
     );
+  }
+
+  StatefulBuilder buildFilterBottomSheet(BuildContext context) {
+    return StatefulBuilder(builder: (builder, setModalState) {
+      return Wrap(children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Фильтры",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.center,
+                        ),
+                        AppTextButton(
+                            onTap: () {
+                              setModalState(() {
+                                _filterSize = "Любой";
+                                _filterBrand = "Любой";
+                                _filterMaterial = "Любой";
+                              });
+
+                              setState(() {});
+                            },
+                            label: "Сбросить")
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      "Размер",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(0.6)),
+                    ),
+                    Container(
+                      height: 58,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _sizeList.length,
+                        itemBuilder: (builder, index) {
+                          return AppChip(
+                              label: _sizeList[index],
+                              onTap: () {
+                                setModalState(() {
+                                  _filterSize = _sizeList[index];
+                                });
+
+                                setState(() {});
+                              },
+                              isSelected: _filterSize == _sizeList[index]);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Бренд",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(0.6)),
+                    ),
+                    SizedBox(height: 4),
+                    AppTextField(
+                      onChanged: (text) {},
+                      textEditingController: _brandEditingController,
+                      readOnly: true,
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.white,
+                            icon: Icon(Icons.arrow_drop_down_rounded,
+                                color: AppColors.iconColor),
+                            onChanged: (item) {
+                              setModalState(() {
+                                _filterBrand = item.toString();
+
+                                _brandEditingController.text = item.toString();
+                              });
+
+                              setState(() {});
+                            },
+                            items: _brandList.map((String i) {
+                              return DropdownMenuItem<String>(
+                                  value: i,
+                                  child: Text(
+                                    i,
+                                    style: TextStyle(fontSize: 14),
+                                  ));
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Материал",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black.withOpacity(0.6)),
+                    ),
+                    SizedBox(height: 4),
+                    AppTextField(
+                      onChanged: (text) {},
+                      textEditingController: _materialEditingController,
+                      readOnly: true,
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.white,
+                            icon: Icon(Icons.arrow_drop_down_rounded,
+                                color: AppColors.iconColor),
+                            onChanged: (item) {
+                              setModalState(() {
+                                _filterMaterial = item.toString();
+
+                                _materialEditingController.text =
+                                    item.toString();
+                              });
+
+                              setState(() {});
+                            },
+                            items: _materialList.map((String i) {
+                              return DropdownMenuItem<String>(
+                                  value: i,
+                                  child: Text(
+                                    i,
+                                    style: TextStyle(fontSize: 14),
+                                  ));
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            label: "Применить",
+                            onTap: () {
+                              Navigator.pop(context);
+
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ]);
+    });
   }
 }

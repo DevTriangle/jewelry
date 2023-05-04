@@ -37,35 +37,30 @@ class AppItem extends StatelessWidget {
           children: [
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
                     child: AspectRatio(
-                      aspectRatio: 1,
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        aspectRatio: 1,
+                        child: Ink.image(
+                          image: CachedNetworkImageProvider(imageUrl),
+                          fit: BoxFit.cover,
+                        )),
                   ),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 8.0,
-                left: 12, right: 16,
-                bottom: 8
-              ),
+                  top: 8.0, left: 12, right: 16, bottom: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     label,
                     style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400
-                    ),
+                        fontSize: 15, fontWeight: FontWeight.w400),
                   ),
                   const SizedBox(height: 2),
                   Text(
@@ -73,16 +68,13 @@ class AppItem extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w400,
-                      color: AppColors.hintColor
-                    ),
+                        color: AppColors.hintColor),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     "$cost ₽",
                     style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600
-                    ),
+                        fontSize: 14, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -92,5 +84,4 @@ class AppItem extends StatelessWidget {
       ),
     );
   }
-
 }

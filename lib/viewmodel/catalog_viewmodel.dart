@@ -46,5 +46,19 @@ class CatalogViewModel extends ChangeNotifier {
         rating: 4,
         image:
             "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
+    CatalogItem(
+        id: 3,
+        name: "name",
+        shortDesc: "shortDesc",
+        description: "wdwerewrerwerwerad",
+        price: "13450",
+        categories: ["Золото", "Платина"],
+        sizeList: ["10", "10.5", "11", "12", "13.5", "14", "15.5"],
+        brand: "brand",
+        weight: 20,
+        material: "Золото",
+        rating: 4,
+        image:
+            "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
   ];
 }
