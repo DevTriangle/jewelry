@@ -37,7 +37,7 @@ class CatalogViewModel extends ChangeNotifier {
         name: "name",
         shortDesc: "shortDesc",
         description: "wdwerewrerwerwerad",
-        price: "1352550000000000000",
+        price: "13450006",
         categories: ["Золото", "Платина"],
         sizeList: ["10", "10.5", "11", "12", "13.5", "14", "15.5"],
         brand: "brand",

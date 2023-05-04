@@ -4,6 +4,7 @@ import 'package:jewelry/view/screens/auth_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:jewelry/view/screens/main_screen.dart';
 import 'package:jewelry/viewmodel/catalog_viewmodel.dart';
+import 'package:jewelry/viewmodel/order_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,6 +12,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => CatalogViewModel()),
+      ChangeNotifierProvider(create: (_) => OrderViewModel()),
     ],
     child: const MyApp(),
   ));

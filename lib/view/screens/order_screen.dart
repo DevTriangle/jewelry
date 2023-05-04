@@ -6,6 +6,8 @@ import 'package:jewelry/model/payment_method.dart';
 import 'package:jewelry/utils/format_count.dart';
 import 'package:jewelry/view/widgets/cart_item.dart';
 import 'package:jewelry/view/widgets/payment_card.dart';
+import 'package:jewelry/viewmodel/order_viewmodel.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/user.dart';
@@ -24,21 +26,13 @@ class OrderScreen extends StatefulWidget {
 }
 
 class OrderScreenState extends State<OrderScreen> {
+  late OrderViewModel viewModel;
+
   String _name = "";
   String _mail = "";
   String _phone = "";
   String _promo = "";
   String _address = "";
-
-  final List<String> _addressList = [
-    "Улица 1, д.1",
-    "Улица 2, д.2",
-    "Улица 3, д.3",
-    "Улица 4, д.4",
-    "Улица 5, д.5",
-    "Улица 6, д.6",
-    "Улица 7, д.7"
-  ];
 
   int _selectedPaymentMethod = -1;
   int sum = 0;
@@ -50,14 +44,11 @@ class OrderScreenState extends State<OrderScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
-  final List<PaymentMethod> _methods = [
-    PaymentMethod("Оплата картой/наличными при получении", Icons.money_rounded),
-    PaymentMethod("Оплата картой онлайн", Icons.payment_rounded),
-  ];
-
   @override
   void initState() {
     super.initState();
+
+    viewModel = Provider.of<OrderViewModel>(context, listen: false);
 
     getData = loadData();
 
@@ -266,7 +257,7 @@ class OrderScreenState extends State<OrderScreen> {
                                               item.toString();
                                         });
                                       },
-                                      items: _addressList.map((String i) {
+                                      items: viewModel.addressList.map((String i) {
                                         return DropdownMenuItem<String>(
                                             value: i,
                                             child: Text(
@@ -291,8 +282,8 @@ class OrderScreenState extends State<OrderScreen> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return PaymentCard(
-                                      label: _methods[index].name,
-                                      icon: _methods[index].icon,
+                                      label: viewModel.methods[index].name,
+                                      icon: viewModel.methods[index].icon,
                                       isSelected:
                                           _selectedPaymentMethod == index,
                                       onClick: () {

@@ -43,14 +43,17 @@ class HomeScreenState extends State<HomeScreen> {
 
   Future<void> startTimer() async {
     timer = Timer.periodic(const Duration(seconds: 8), (t) {
-        if (_controller.page != null) {
-          if (_controller.page! < 1) {
-            _controller.animateToPage(_controller.page!.toInt() + 1,
-                duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-          } else {
-            _controller.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
-          }
+      if (_controller.page != null) {
+        if (_controller.page! < 1) {
+          _controller.animateToPage(_controller.page!.toInt() + 1,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut);
+        } else {
+          _controller.animateToPage(0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut);
         }
+      }
     });
   }
 
@@ -174,6 +177,7 @@ class HomeScreenState extends State<HomeScreen> {
                                                     image: catalogFiltered[index].image))));
                                   });
                             })),
+                        const SizedBox(height: 20)
                       ],
                     ),
                   ),
