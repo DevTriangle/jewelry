@@ -22,6 +22,7 @@ class AppTextField extends StatelessWidget {
   final TextAlign textAlign;
   final TextEditingController? textEditingController;
   final bool readOnly;
+  final Function()? onTap;
 
   const AppTextField({
     super.key,
@@ -51,7 +52,8 @@ class AppTextField extends StatelessWidget {
       color: Colors.black,
     ),
     this.textAlign = TextAlign.start,
-    this.textEditingController
+    this.textEditingController,
+    this.onTap
   });
 
   @override
@@ -65,6 +67,7 @@ class AppTextField extends StatelessWidget {
       readOnly: readOnly,
       controller: textEditingController,
       style: textStyle,
+      onTap: onTap,
       textAlign: textAlign,
       textAlignVertical: TextAlignVertical.center,
       keyboardType: textInputType,

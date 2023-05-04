@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/screens/code_screen.dart';
 import 'package:jewelry/view/screens/main_screen.dart';
@@ -22,8 +23,13 @@ class AuthScreenState extends State<AuthScreen> {
       onWillPop:() {
         return Future.value(false);
       },
-      child: Container(
-        child: SafeArea(
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark
+      ),
+      child: SafeArea(
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(50),

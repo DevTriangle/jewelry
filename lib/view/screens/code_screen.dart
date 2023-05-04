@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jewelry/view/screens/auth_screen.dart';
 import 'package:jewelry/view/screens/main_screen.dart';
 import 'package:jewelry/view/widgets/app_text_field.dart';
@@ -58,8 +59,12 @@ class CodeScreenState extends State<CodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark
+      ),
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(

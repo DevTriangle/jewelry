@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jewelry/model/cart_item.dart';
 import 'package:jewelry/model/payment_method.dart';
 import 'package:jewelry/utils/format_count.dart';
@@ -27,6 +28,17 @@ class OrderScreenState extends State<OrderScreen> {
   String _mail = "";
   String _phone = "";
   String _promo = "";
+  String _address = "";
+
+  final List<String> _addressList = [
+    "Улица 1, д.1",
+    "Улица 2, д.2",
+    "Улица 3, д.3",
+    "Улица 4, д.4",
+    "Улица 5, д.5",
+    "Улица 6, д.6",
+    "Улица 7, д.7"
+  ];
 
   int _selectedPaymentMethod = -1;
   int sum = 0;
@@ -36,6 +48,7 @@ class OrderScreenState extends State<OrderScreen> {
 
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   final List<PaymentMethod> _methods = [
     PaymentMethod("Оплата наличными при получении", Icons.money_rounded),
@@ -80,7 +93,12 @@ class OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark
+      ),
       child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
@@ -223,6 +241,45 @@ class OrderScreenState extends State<OrderScreen> {
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
                               SizedBox(height: 8),
+                              AppTextField(
+                                onChanged: (text) {},
+                                textEditingController: _addressController,
+                                readOnly: true,
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton<String>(
+                                      dropdownColor: Colors.white,
+                                      icon: Icon(Icons.arrow_drop_down_rounded,
+                                          color: AppColors.iconColor),
+                                      onChanged: (item) {
+                                        setState(() {
+                                          _address = item.toString();
+
+                                          _addressController.text =
+                                              item.toString();
+                                        });
+                                      },
+                                      items: _addressList.map((String i) {
+                                        return DropdownMenuItem<String>(
+                                            value: i,
+                                            child: Text(
+                                              i,
+                                              style: TextStyle(fontSize: 14),
+                                            ));
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              const Text(
+                                "Способ оплаты",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(height: 8),
                               ListView.builder(
                                 itemCount: 2,
                                 shrinkWrap: true,
@@ -241,37 +298,40 @@ class OrderScreenState extends State<OrderScreen> {
                                 },
                               ),
                               SizedBox(height: 16),
-                              AppTextField(
-                                onChanged: (text) {
-                                  setState(() {
-                                    _promo = text;
-                                  });
-                                },
-                                hintText: "Промокод",
-                              ),
-                              SizedBox(height: 16),
+                              // AppTextField(
+                              //   onChanged: (text) {
+                              //     setState(() {
+                              //       _promo = text;
+                              //     });
+                              //   },
+                              //   hintText: "Промокод",
+                              // ),
+                              // SizedBox(height: 16),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Text("Итого",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          fontSize: 20)),
+                                          fontSize: 18)),
                                   Column(
                                     children: [
                                       Text("$sum ₽",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.w600,
-                                              fontSize: 20)),
-                                      Text("$count ${getPluralForm(count, "изделие", "изделия", "изделий")}",
+                                              fontSize: 18)),
+                                      Text(
+                                          "$count ${getPluralForm(count, "изделие", "изделия", "изделий")}",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 14,
+                                              fontSize: 12,
                                               color: AppColors.hintColor)),
                                     ],
                                   )
                                 ],
-                              )
+                              ),
+                              const SizedBox(height: 90),
                             ]),
                       );
                     }),
@@ -286,7 +346,8 @@ class OrderScreenState extends State<OrderScreen> {
                   color: _name.trim().isNotEmpty &&
                           _phone.trim().isNotEmpty &&
                           _mail.trim().isNotEmpty &&
-                          _selectedPaymentMethod != -1
+                          _selectedPaymentMethod != -1 &&
+                          _address != ""
                       ? AppColors.primary
                       : Color.fromARGB(255, 183, 183, 183),
                   elevation: 0,
@@ -296,7 +357,8 @@ class OrderScreenState extends State<OrderScreen> {
                     onTap: _name.trim().isNotEmpty &&
                             _phone.trim().isNotEmpty &&
                             _mail.trim().isNotEmpty &&
-                            _selectedPaymentMethod != -1
+                            _selectedPaymentMethod != -1 &&
+                            _address != ""
                         ? () {}
                         : null,
                     child: Padding(

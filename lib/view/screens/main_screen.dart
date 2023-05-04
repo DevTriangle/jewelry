@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jewelry/view/colors.dart';
 import 'package:jewelry/view/screens/cart_screen.dart';
 import 'package:jewelry/view/screens/catalog_screen.dart';
@@ -27,8 +28,12 @@ class MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark
+      ),
       child: SafeArea(
         child: Scaffold(
           bottomNavigationBar: Card(
