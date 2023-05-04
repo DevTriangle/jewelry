@@ -53,7 +53,7 @@ class HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (itemBuilder, index) {
                           return Card(
                             elevation: 0,
-                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            margin: const EdgeInsets.symmetric(horizontal: 5),
                             shape: AppShapes.roundedRectangleShape,
                             clipBehavior: Clip.antiAlias,
                             color: Colors.transparent,

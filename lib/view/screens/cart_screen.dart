@@ -87,7 +87,7 @@ class CartScreenState extends State<CartScreen> {
                                 child: Column(
                                   children: [
                                     ListView.builder(
-                                        physics: NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         itemCount: cart.length,
                                         shrinkWrap: true,
                                         itemBuilder: (c, index) {
@@ -109,19 +109,19 @@ class CartScreenState extends State<CartScreen> {
                                             },
                                           );
                                         }),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 16,
                                     ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("Итого",
+                                        const Text("Итого",
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20)),
                                         Text("$sum ₽",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20))
                                       ],
@@ -157,7 +157,7 @@ class CartScreenState extends State<CartScreen> {
                                       ),
                                     ),
                                   ))
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       );
                     } else {
@@ -166,7 +166,7 @@ class CartScreenState extends State<CartScreen> {
                       );
                     }
                   } else {
-                    return SizedBox();
+                    return const SizedBox();
                   }
                 })
         )

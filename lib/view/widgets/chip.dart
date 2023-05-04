@@ -19,10 +19,10 @@ class AppChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(side: BorderSide(width: 1, color: AppColors.primary), borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(side: const BorderSide(width: 1, color: AppColors.primary), borderRadius: BorderRadius.circular(16)),
       color: isSelected ? AppColors.primary : Colors.white,
       clipBehavior: Clip.antiAlias,
-      margin: EdgeInsets.only(top: 8, bottom: 8, right: 8),
+      margin: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
       child: InkWell(
         onTap: onTap,
         child: Center(

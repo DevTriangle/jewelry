@@ -35,7 +35,7 @@ class AuthScreenState extends State<AuthScreen> {
                     padding: const EdgeInsets.all(4.0),
                     child: AppTextButton(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (builder) => MainScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (builder) => const MainScreen()));
                       },
                       label: "Пропустить",
                     ),
@@ -72,7 +72,7 @@ class AuthScreenState extends State<AuthScreen> {
                       prefixText: "+7 ",
                       maxLength: 10,
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       Expanded(

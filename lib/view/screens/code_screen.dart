@@ -37,7 +37,7 @@ class CodeScreenState extends State<CodeScreen> {
   }
 
   Future<void> startTimer() async {
-    Timer.periodic(Duration(seconds: 1), (t) {
+    Timer.periodic(const Duration(seconds: 1), (t) {
       setState(() {
         if (timer > 0) {
           timer--;
@@ -53,7 +53,7 @@ class CodeScreenState extends State<CodeScreen> {
 
     sharedPreferences.setString("phone", phone);
 
-    Navigator.push(context, MaterialPageRoute(builder: (builder) => MainScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (builder) => const MainScreen()));
   }
 
   @override
@@ -94,7 +94,7 @@ class CodeScreenState extends State<CodeScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Введите код",
                         style: TextStyle(
                           fontSize: 24,
@@ -112,7 +112,7 @@ class CodeScreenState extends State<CodeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -132,7 +132,7 @@ class CodeScreenState extends State<CodeScreen> {
                       },
                       maxLines: 1,
                       maxLength: 1,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 23,
                       ),
@@ -142,7 +142,7 @@ class CodeScreenState extends State<CodeScreen> {
                       textInputType: TextInputType.number,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Container(
                       width: 48,
                       height: 48,
@@ -160,7 +160,7 @@ class CodeScreenState extends State<CodeScreen> {
                         },
                         maxLines: 1,
                         maxLength: 1,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 23,
                         ),
@@ -169,7 +169,7 @@ class CodeScreenState extends State<CodeScreen> {
                         textInputAction: TextInputAction.next,
                         textInputType: TextInputType.number,
                       )),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Container(
                       width: 48,
                       height: 48,
@@ -187,7 +187,7 @@ class CodeScreenState extends State<CodeScreen> {
                         },
                         maxLines: 1,
                         maxLength: 1,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 23,
                         ),
@@ -196,7 +196,7 @@ class CodeScreenState extends State<CodeScreen> {
                         textInputAction: TextInputAction.next,
                         textInputType: TextInputType.number,
                       )),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Container(
                     width: 48,
                     height: 48,
@@ -215,7 +215,7 @@ class CodeScreenState extends State<CodeScreen> {
                       },
                       maxLines: 1,
                       maxLength: 1,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 23,
                       ),
@@ -227,7 +227,7 @@ class CodeScreenState extends State<CodeScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Container(
                 width: 216,
                 child: Text(

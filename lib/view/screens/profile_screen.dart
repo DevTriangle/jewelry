@@ -22,6 +22,8 @@ class ProfileScreenState extends State<ProfileScreen> {
   String _lastName = "";
   String _patronymic = "";
 
+  late Future<bool> getData;
+
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
@@ -30,6 +32,8 @@ class ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+
+    getData = loadData();
   }
 
   Future<bool> loadData() async {
@@ -39,17 +43,15 @@ class ProfileScreenState extends State<ProfileScreen> {
 
     if (phone == null) {
       Navigator.push(
-          context, MaterialPageRoute(builder: (builder) => AuthScreen()));
+          context, MaterialPageRoute(builder: (builder) => const AuthScreen()));
       return false;
     } else {
-      _phone = phone;
+      _phone = phone.replaceAll("+7 ", "");
+      _phoneController.text = _phone;
 
       User? user = await DataSaver().loadUserData();
 
       if (user != null) {
-        _phone = user.phone;
-        _phoneController.text = _phone;
-
         _firstName = user.firstName;
         _firstNameController.text = _firstName;
 
@@ -93,9 +95,9 @@ class ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: FutureBuilder(
-                future: loadData(),
+                future: getData,
                 builder: (b, snapshot) {
                   if (snapshot.hasData) {
                     return Column(
@@ -104,80 +106,99 @@ class ProfileScreenState extends State<ProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12),
-                              child: Text("Фамилия",
+                            const Padding(
+                              padding: EdgeInsets.only(left: 12),
+                              child: Text("Фамилия *",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: AppColors.hintColor)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            AppTextField(onChanged: (text) {
-                              setState(() {
-                                _lastName = text;
-                              });
-                            },),
-                            SizedBox(height: 4),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12),
-                              child: Text("Имя",
+                            AppTextField(
+                              onChanged: (text) {
+                                setState(() {
+                                  _lastName = text;
+                                });
+                              },
+                              textEditingController: _lastNameController,
+                            ),
+                            const SizedBox(height: 4),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 12),
+                              child: Text("Имя *",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: AppColors.hintColor)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            AppTextField(onChanged: (text) {
-                              setState(() {
-                                _firstName = text;
-                              });
-                            }),
-                            SizedBox(height: 4),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12),
+                            AppTextField(
+                              onChanged: (text) {
+                                setState(() {
+                                  _firstName = text;
+                                });
+                              },
+                              textEditingController: _firstNameController,
+                            ),
+                            const SizedBox(height: 4),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 12),
                               child: Text("Отчество",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: AppColors.hintColor)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            AppTextField(onChanged: (text) {
-                              setState(() {
-                                _patronymic = text;
-                              });
-                            }),
-                            SizedBox(height: 4),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12),
-                              child: Text("Телефон",
+                            AppTextField(
+                                onChanged: (text) {
+                                  setState(() {
+                                    _patronymic = text;
+                                  });
+                                },
+                                textEditingController: _patronymicController),
+                            const SizedBox(height: 4),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 12),
+                              child: Text("Телефон *",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: AppColors.hintColor)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
                             AppTextField(
                               onChanged: (text) {
-                              setState(() {
-                                _phone = text;
-                              });
-                            }),
-                            SizedBox(height: 32),
+                                setState(() {
+                                  _phone = text;
+                                });
+                              },
+                              hintText: "(900) 123 45 67",
+                              prefixText: "+7 ",
+                              maxLength: 10,
+                              textEditingController: _phoneController,
+                            ),
+                            const SizedBox(height: 32),
                             Row(
                               children: [
                                 Expanded(
                                     child: AppButton(
                                   label: "Сохранить",
-                                  onTap: _phone.trim().isNotEmpty && _firstName.trim().isNotEmpty && _lastName.trim().isNotEmpty ? () {
-                                    
-                                  } : null,
-                                  background: _phone.trim().isNotEmpty && _firstName.trim().isNotEmpty && _lastName.trim().isNotEmpty ? AppColors.primary : AppColors.primary.withOpacity(0.5),
+                                  onTap: RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                                          _firstName.trim().isNotEmpty &&
+                                          _lastName.trim().isNotEmpty
+                                      ? () {}
+                                      : null,
+                                  background: RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                                          _firstName.trim().isNotEmpty &&
+                                          _lastName.trim().isNotEmpty
+                                      ? AppColors.primary
+                                      : AppColors.primary.withOpacity(0.5),
                                 )),
                               ],
                             )
@@ -186,7 +207,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                       ],
                     );
                   } else {
-                    return SizedBox();
+                    return const SizedBox();
                   }
                 }),
           ),

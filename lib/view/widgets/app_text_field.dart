@@ -20,6 +20,7 @@ class AppTextField extends StatelessWidget {
   final TextStyle prefixStyle;
   final TextStyle textStyle;
   final TextAlign textAlign;
+  final TextEditingController? textEditingController;
 
   const AppTextField({
     super.key,
@@ -47,7 +48,8 @@ class AppTextField extends StatelessWidget {
       fontWeight: FontWeight.normal,
       color: Colors.black,
     ),
-    this.textAlign = TextAlign.start
+    this.textAlign = TextAlign.start,
+    this.textEditingController
   });
 
   @override
@@ -58,6 +60,7 @@ class AppTextField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
+      controller: textEditingController,
       style: textStyle,
       textAlign: textAlign,
       textAlignVertical: TextAlignVertical.center,

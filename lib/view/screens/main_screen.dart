@@ -19,10 +19,10 @@ class MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   List<Widget> _screens = [
-    HomeScreen(),
-    CatalogScreen(),
-    CartScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const CatalogScreen(),
+    const CartScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -33,7 +33,7 @@ class MainScreenState extends State<MainScreen> {
         child: Scaffold(
           bottomNavigationBar: Card(
             elevation: 0.0,
-            shape: Border(
+            shape: const Border(
               top: BorderSide(width: 0.1, color: AppColors.hintColor)
             ),
             margin: EdgeInsets.zero,

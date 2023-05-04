@@ -41,7 +41,7 @@ class CatalogScreenState extends State<CatalogScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(122),
+            preferredSize: const Size.fromHeight(122),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Column(
@@ -75,7 +75,7 @@ class CatalogScreenState extends State<CatalogScreen> {
               ),
             )),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [

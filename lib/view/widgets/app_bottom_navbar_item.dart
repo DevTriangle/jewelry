@@ -34,7 +34,7 @@ class AppBottomNavBarItem extends StatelessWidget {
                   icon,
                   color: isSelected ? AppColors.primary : AppColors.iconColor,
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   label,
                   style: TextStyle(

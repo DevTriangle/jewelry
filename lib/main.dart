@@ -44,9 +44,9 @@ class MyApp extends StatelessWidget {
         future: getPhone(context),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            return MainScreen();
+            return const MainScreen();
           } else {
-            return AuthScreen();
+            return const AuthScreen();
           }
         },
       ),

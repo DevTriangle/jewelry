@@ -68,10 +68,10 @@ class CartItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(cartItem.name,
-                                      style: TextStyle(fontSize: 16)),
+                                      style: const TextStyle(fontSize: 16)),
                                   const SizedBox(height: 4),
                                   Text(cartItem.description,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 14,
                                           color: AppColors.hintColor)),
                                   const SizedBox(height: 4),
@@ -86,7 +86,7 @@ class CartItem extends StatelessWidget {
                                       ),
                                       TextSpan(
                                         text: "${cartItem.size}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black),
@@ -101,7 +101,7 @@ class CartItem extends StatelessWidget {
                         const SizedBox(width: 10),
                         Text(
                           "${int.parse(cartItem.price) * cartItem.count} ₽",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 18),
                         )
                       ],
@@ -109,7 +109,7 @@ class CartItem extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,7 +128,7 @@ class CartItem extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.remove,
                                 color: AppColors.hintColor,
@@ -168,7 +168,7 @@ class CartItem extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.remove_rounded,
                                     color: AppColors.hintColor,
@@ -178,15 +178,15 @@ class CartItem extends StatelessWidget {
                               ),
                             ),
                           )),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         cartItem.count.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             color: AppColors.hintColor,
                             fontWeight: FontWeight.w500),
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Card(
                           elevation: 0,
                           margin: EdgeInsets.zero,
@@ -208,7 +208,7 @@ class CartItem extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.add_rounded,
                                     color: AppColors.hintColor,
