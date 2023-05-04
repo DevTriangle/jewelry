@@ -211,6 +211,7 @@ class OrderScreenState extends State<OrderScreen> {
                                 },
                                 textEditingController: _phoneController,
                                 textInputType: TextInputType.number,
+                                prefixText: "+7 ",
                               ),
                               SizedBox(height: 8),
                               RichText(
