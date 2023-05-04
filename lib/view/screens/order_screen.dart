@@ -51,7 +51,7 @@ class OrderScreenState extends State<OrderScreen> {
   final TextEditingController _addressController = TextEditingController();
 
   final List<PaymentMethod> _methods = [
-    PaymentMethod("Оплата наличными при получении", Icons.money_rounded),
+    PaymentMethod("Оплата картой/наличными при получении", Icons.money_rounded),
     PaymentMethod("Оплата картой онлайн", Icons.payment_rounded),
   ];
 
@@ -368,12 +368,11 @@ class OrderScreenState extends State<OrderScreen> {
                         ? () {}
                         : null,
                     child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Оплатить",
                             style: TextStyle(
                                 fontSize: 17,
