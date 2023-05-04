@@ -241,7 +241,7 @@ class OrderScreenState extends State<OrderScreen> {
                               ),
                               SizedBox(height: 16),
                               const Text(
-                                "Способ оплаты",
+                                "Адрес магазина",
                                 style: TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w500),
                               ),
@@ -321,6 +321,7 @@ class OrderScreenState extends State<OrderScreen> {
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18)),
                                   Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text("$sum ₽",
                                           style: const TextStyle(
