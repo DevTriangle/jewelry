@@ -22,8 +22,8 @@ class User {
 
   Map toJson() => {
     "firstName": firstName,
-    "lastName": firstName,
-    "patronymic": firstName,
-    "phone": firstName,
+    "lastName": lastName,
+    "patronymic": patronymic,
+    "phone": phone,
   };
 }

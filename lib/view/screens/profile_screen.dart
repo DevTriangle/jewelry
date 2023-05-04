@@ -225,20 +225,12 @@ class ProfileScreenState extends State<ProfileScreen> {
                                               phone: _phone));
 
                                           final snackBar = SnackBar(
-                                              shape: AppShapes
-                                                  .roundedRectangleShape,
+                                              shape: AppShapes.roundedRectangleShape,
                                               margin: const EdgeInsets.all(10),
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 10,
-                                                      vertical: 15),
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: const AppSnackBarContent(
-                                                  label: "Изменения сохранены!",
-                                                  icon: Icons.save_rounded));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
+                                              padding: const EdgeInsets.symmetric(     horizontal: 10,     vertical: 15),
+                                              behavior:SnackBarBehavior.floating,
+                                              content: const AppSnackBarContent(label: "Изменения сохранены!",icon: Icons.save_rounded));
+                                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                         }
                                       : null,
                                   background:
