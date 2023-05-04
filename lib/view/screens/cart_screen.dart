@@ -128,6 +128,7 @@ class CartScreenState extends State<CartScreen> {
                                                 fontSize: 20))
                                       ],
                                     ),
+                                    const SizedBox(height: 90),
                                   ],
                                 ),
                               ),

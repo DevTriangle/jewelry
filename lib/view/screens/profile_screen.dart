@@ -84,7 +84,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                     child: Text(
                       "Профиль",
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.center,
