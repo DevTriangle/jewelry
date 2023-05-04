@@ -41,7 +41,6 @@ class HomeScreenState extends State<HomeScreen> {
 
   Future<void> startTimer() async {
     Timer.periodic(const Duration(seconds: 3), (t) {
-      setState(() {
         if (_controller.page != null) {
           if (_controller.page! < 1) {
             _controller.animateToPage(_controller.page!.toInt() + 1,
@@ -50,7 +49,6 @@ class HomeScreenState extends State<HomeScreen> {
             _controller.animateToPage(0, duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
           }
         }
-      });
     });
   }
 
