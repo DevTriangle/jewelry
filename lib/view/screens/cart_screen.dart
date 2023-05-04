@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:jewelry/model/cart_item.dart';
 import 'package:jewelry/utils/cart_service.dart';
 import 'package:jewelry/view/colors.dart';
+import 'package:jewelry/view/screens/order_screen.dart';
 import 'package:jewelry/view/widgets/cart_item.dart';
 
 import '../../model/catalog_item.dart';
@@ -56,7 +57,7 @@ class CartScreenState extends State<CartScreen> {
                       child: Text(
                         "Корзина",
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,
@@ -87,7 +88,8 @@ class CartScreenState extends State<CartScreen> {
                                 child: Column(
                                   children: [
                                     ListView.builder(
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         itemCount: cart.length,
                                         shrinkWrap: true,
                                         itemBuilder: (c, index) {
@@ -143,7 +145,13 @@ class CartScreenState extends State<CartScreen> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(0)),
                                     child: InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (builder) =>
+                                                    OrderScreen(cart: cart)));
+                                      },
                                       child: const Padding(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20, vertical: 24),
@@ -168,8 +176,6 @@ class CartScreenState extends State<CartScreen> {
                   } else {
                     return const SizedBox();
                   }
-                })
-        )
-    );
+                })));
   }
 }
