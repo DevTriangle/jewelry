@@ -23,13 +23,17 @@ class ItemScreenState extends State<ItemScreen> {
 
   late Future<List<AppCartItem>> getCart;
 
-  String _selectedSize = "";
+  late String _selectedSize;
 
   @override
   void initState() {
     super.initState();
 
     getCart = loadCart();
+
+    if (widget.item.sizeList.isNotEmpty) {
+      _selectedSize = widget.item.sizeList[0];
+    }
   }
 
   Future<List<AppCartItem>> loadCart() async {

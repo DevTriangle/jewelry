@@ -14,7 +14,7 @@ class CatalogViewModel extends ChangeNotifier {
         sizeList: ["10", "11", "12", "13.5", "14", "15.5"],
         brand: "brand",
         weight: 20,
-        material: "Золото-платина",
+        material: "Позолота",
         rating: 4,
         image:
             "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),
@@ -28,7 +28,7 @@ class CatalogViewModel extends ChangeNotifier {
         sizeList: ["9", "11", "12", "13.5", "14", "15.5"],
         brand: "brand",
         weight: 20,
-        material: "Золото-платина",
+        material: "Золото",
         rating: 4,
         image:
             "https://g6.sunlight.net/media/products/d300420c272d14181c5a32b4a2e58018ed092246.jpg"),
@@ -42,7 +42,7 @@ class CatalogViewModel extends ChangeNotifier {
         sizeList: ["10", "10.5", "11", "12", "13.5", "14", "15.5"],
         brand: "brand",
         weight: 20,
-        material: "Золото-платина",
+        material: "Золото",
         rating: 4,
         image:
             "https://g3.sunlight.net/media/products/59c472377e3f83847d2e3c8fd683a2add134430f.jpg"),

@@ -179,30 +179,33 @@ class CatalogScreenState extends State<CatalogScreen> {
                                           onChanged: (text) {},
                                           textEditingController: _brandEditingController,
                                           readOnly: true,
-                                          suffixIcon: DropdownButtonHideUnderline(
-                                            child: DropdownButton<String>(
-                                              dropdownColor: Colors.white,
-                                              icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
-                                              onChanged: (item) {
-                                                setModalState(() {
-                                                  _filterBrand = item.toString();
+                                          suffixIcon: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton<String>(
+                                                dropdownColor: Colors.white,
+                                                icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
+                                                onChanged: (item) {
+                                                  setModalState(() {
+                                                    _filterBrand = item.toString();
 
-                                                  _brandEditingController.text = item.toString();
-                                                });
+                                                    _brandEditingController.text = item.toString();
+                                                  });
 
-                                                setState(() {});
-                                              },
-                                              items: _brandList.map((String i) {
-                                                return DropdownMenuItem<String>(
-                                                  value: i,
-                                                    child: Text(
-                                                      i,
-                                                      style: TextStyle(
-                                                        fontSize: 14
-                                                      ),
-                                                    )
-                                                );
-                                              }).toList(),
+                                                  setState(() {});
+                                                },
+                                                items: _brandList.map((String i) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: i,
+                                                      child: Text(
+                                                        i,
+                                                        style: TextStyle(
+                                                          fontSize: 14
+                                                        ),
+                                                      )
+                                                  );
+                                                }).toList(),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -220,30 +223,33 @@ class CatalogScreenState extends State<CatalogScreen> {
                                           onChanged: (text) {},
                                           textEditingController: _materialEditingController,
                                           readOnly: true,
-                                          suffixIcon: DropdownButtonHideUnderline(
-                                            child: DropdownButton<String>(
-                                              dropdownColor: Colors.white,
-                                              icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
-                                              onChanged: (item) {
-                                                setModalState(() {
-                                                  _filterMaterial = item.toString();
+                                          suffixIcon: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton<String>(
+                                                dropdownColor: Colors.white,
+                                                icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
+                                                onChanged: (item) {
+                                                  setModalState(() {
+                                                    _filterMaterial = item.toString();
 
-                                                  _materialEditingController.text = item.toString();
-                                                });
+                                                    _materialEditingController.text = item.toString();
+                                                  });
 
-                                                setState(() {});
-                                              },
-                                              items: _materialList.map((String i) {
-                                                return DropdownMenuItem<String>(
-                                                    value: i,
-                                                    child: Text(
-                                                      i,
-                                                      style: TextStyle(
-                                                          fontSize: 14
-                                                      ),
-                                                    )
-                                                );
-                                              }).toList(),
+                                                  setState(() {});
+                                                },
+                                                items: _materialList.map((String i) {
+                                                  return DropdownMenuItem<String>(
+                                                      value: i,
+                                                      child: Text(
+                                                        i,
+                                                        style: TextStyle(
+                                                            fontSize: 14
+                                                        ),
+                                                      )
+                                                  );
+                                                }).toList(),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -318,14 +324,19 @@ class CatalogScreenState extends State<CatalogScreen> {
                             element.name
                                 .toLowerCase()
                                 .contains(_searchText.toLowerCase()) &&
-                            (element.sizeList.contains(_filterSize) || _filterSize == "Любой"))
+                            (element.sizeList.contains(_filterSize) || _filterSize == "Любой")
+                                && (element.brand == _filterBrand || _filterBrand == "Любой")
+                                && (element.material == _filterMaterial || _filterMaterial == "Любой")
+                    )
                         .length,
                     (index) {
                       List<CatalogItem> catalogFiltered = List.from(
                           viewModel.catalog.where((element) =>
                               (element.categories.contains(_selectedCategory) ||
                                   _selectedCategory == "Популярное") &&
-                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой")));
+                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой")
+                              && (element.brand == _filterBrand || _filterBrand == "Любой")
+                              && (element.material == _filterMaterial || _filterMaterial == "Любой")));
 
                       return AppItem(
                         label: catalogFiltered[index].name,
