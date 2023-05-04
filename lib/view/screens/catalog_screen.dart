@@ -21,6 +21,7 @@ class CatalogScreenState extends State<CatalogScreen> {
   late CatalogViewModel viewModel;
 
   final TextEditingController _brandEditingController = TextEditingController();
+  final TextEditingController _materialEditingController = TextEditingController();
 
   final List<String> _brandList = [
     "Любой",
@@ -45,10 +46,21 @@ class CatalogScreenState extends State<CatalogScreen> {
     "18"
   ];
 
+  final List<String> _materialList = [
+    "Любой",
+    "Золото",
+    "Серебро",
+    "Платина",
+    "Бронза",
+    "Медь",
+    "Позолота"
+  ];
+
   String _searchText = "";
 
   String _filterBrand = "Любой";
   String _filterSize = "Любой";
+  String _filterMaterial = "Любой";
 
   @override
   void initState() {
@@ -57,6 +69,7 @@ class CatalogScreenState extends State<CatalogScreen> {
     viewModel = Provider.of<CatalogViewModel>(context, listen: false);
 
     _brandEditingController.text = _filterBrand;
+    _materialEditingController.text = _filterMaterial;
   }
 
   String _selectedCategory = "Популярное";
@@ -153,6 +166,15 @@ class CatalogScreenState extends State<CatalogScreen> {
                                           ),
                                         ),
                                         SizedBox(height: 4),
+                                        Text(
+                                          "Бренд",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black
+                                                  .withOpacity(0.6)),
+                                        ),
+                                        SizedBox(height: 4),
                                         AppTextField(
                                           onChanged: (text) {},
                                           textEditingController: _brandEditingController,
@@ -177,6 +199,47 @@ class CatalogScreenState extends State<CatalogScreen> {
                                                       i,
                                                       style: TextStyle(
                                                         fontSize: 14
+                                                      ),
+                                                    )
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "Материал",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black
+                                                  .withOpacity(0.6)),
+                                        ),
+                                        SizedBox(height: 4),
+                                        AppTextField(
+                                          onChanged: (text) {},
+                                          textEditingController: _materialEditingController,
+                                          readOnly: true,
+                                          suffixIcon: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              dropdownColor: Colors.white,
+                                              icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
+                                              onChanged: (item) {
+                                                setModalState(() {
+                                                  _filterMaterial = item.toString();
+
+                                                  _materialEditingController.text = item.toString();
+                                                });
+
+                                                setState(() {});
+                                              },
+                                              items: _materialList.map((String i) {
+                                                return DropdownMenuItem<String>(
+                                                    value: i,
+                                                    child: Text(
+                                                      i,
+                                                      style: TextStyle(
+                                                          fontSize: 14
                                                       ),
                                                     )
                                                 );
