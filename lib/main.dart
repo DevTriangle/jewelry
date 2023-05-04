@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
 
     String? phone = sharedPreferences.getString("phone");
 
-    return phone;
+    if (phone == null) {
+      return "";
+    } else {
+      return phone;
+    }
   }
 
   @override
@@ -44,9 +48,13 @@ class MyApp extends StatelessWidget {
         future: getPhone(context),
         builder: (context, snapshot) {
           if (snapshot.data != null) {
-            return const MainScreen();
+            if (snapshot.data != "") {
+              return const MainScreen();
+            } else {
+              return const AuthScreen();
+            }
           } else {
-            return const AuthScreen();
+            return Scaffold();
           }
         },
       ),

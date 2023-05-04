@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jewelry/utils/data_saver.dart';
 import 'package:jewelry/view/colors.dart';
@@ -8,6 +7,8 @@ import 'package:jewelry/view/widgets/app_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/user.dart';
+import '../shapes.dart';
+import '../widgets/app_snackbar_content.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -24,10 +25,10 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   late Future<bool> getData;
 
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _patronymicController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _patronymicController = TextEditingController();
 
   @override
   void initState() {
@@ -42,8 +43,7 @@ class ProfileScreenState extends State<ProfileScreen> {
     String? phone = sharedPreferences.getString("phone");
 
     if (phone == null) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (builder) => const AuthScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (builder) => const AuthScreen()));
       return false;
     } else {
       _phone = phone.replaceAll("+7 ", "");
@@ -106,12 +106,20 @@ class ProfileScreenState extends State<ProfileScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(left: 12),
-                              child: Text("Фамилия *",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.hintColor)),
+                              child: RichText(
+                                  text: const TextSpan(children: [
+                                TextSpan(
+                                    text: "Фамилия ",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.hintColor)),
+                                TextSpan(
+                                    text: "*",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.red))
+                              ])),
                             ),
                             const SizedBox(
                               height: 2,
@@ -125,12 +133,20 @@ class ProfileScreenState extends State<ProfileScreen> {
                               textEditingController: _lastNameController,
                             ),
                             const SizedBox(height: 4),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(left: 12),
-                              child: Text("Имя *",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.hintColor)),
+                              child: RichText(
+                                  text: const TextSpan(children: [
+                                TextSpan(
+                                    text: "Имя ",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.hintColor)),
+                                TextSpan(
+                                    text: "*",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.red))
+                              ])),
                             ),
                             const SizedBox(
                               height: 2,
@@ -162,12 +178,20 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 },
                                 textEditingController: _patronymicController),
                             const SizedBox(height: 4),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(left: 12),
-                              child: Text("Телефон *",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      color: AppColors.hintColor)),
+                              child: RichText(
+                                  text: const TextSpan(children: [
+                                TextSpan(
+                                    text: "Телефон ",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.hintColor)),
+                                TextSpan(
+                                    text: "*",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.red))
+                              ])),
                             ),
                             const SizedBox(
                               height: 2,
@@ -189,16 +213,40 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 Expanded(
                                     child: AppButton(
                                   label: "Сохранить",
-                                  onTap: RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                                  onTap: RegExp(r'^[0-9]{10}$')
+                                              .hasMatch(_phone) &&
                                           _firstName.trim().isNotEmpty &&
                                           _lastName.trim().isNotEmpty
-                                      ? () {}
+                                      ? () async {
+                                          await DataSaver().saveUserData(User(
+                                              firstName: _firstName,
+                                              lastName: _lastName,
+                                              patronymic: _patronymic,
+                                              phone: _phone));
+
+                                          final snackBar = SnackBar(
+                                              shape: AppShapes
+                                                  .roundedRectangleShape,
+                                              margin: const EdgeInsets.all(10),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 15),
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              content: const AppSnackBarContent(
+                                                  label: "Изменения сохранены!",
+                                                  icon: Icons.save_rounded));
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        }
                                       : null,
-                                  background: RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
-                                          _firstName.trim().isNotEmpty &&
-                                          _lastName.trim().isNotEmpty
-                                      ? AppColors.primary
-                                      : AppColors.primary.withOpacity(0.5),
+                                  background:
+                                      RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                                              _firstName.trim().isNotEmpty &&
+                                              _lastName.trim().isNotEmpty
+                                          ? AppColors.primary
+                                          : AppColors.primary.withOpacity(0.5),
                                 )),
                               ],
                             )
