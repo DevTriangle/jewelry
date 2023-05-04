@@ -30,6 +30,7 @@ class CatalogScreenState extends State<CatalogScreen> {
     "Компания 2",
     "Компания 3",
     "Компания 4",
+    "brand",
   ];
 
   final List<String> _sizeList = [

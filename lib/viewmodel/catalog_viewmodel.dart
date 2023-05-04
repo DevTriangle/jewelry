@@ -7,7 +7,7 @@ class CatalogViewModel extends ChangeNotifier {
     CatalogItem(
         id: 0,
         name: "Золотые серьги с бриллиантами",
-        shortDesc: "shortDesc",
+        shortDesc: "shortDesc shortDesc shortDesc shortDesc",
         description: "qwrqerqrwqrwqr",
         price: "93893",
         categories: ["Позолота"],
