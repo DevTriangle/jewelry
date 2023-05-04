@@ -342,9 +342,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                         .where((element) =>
                             (element.categories.contains(_selectedCategory) ||
                                 _selectedCategory == "Популярное") &&
-                            element.name
-                                .toLowerCase()
-                                .contains(_searchText.toLowerCase()) &&
+                            (element.name.toLowerCase().contains(_searchText.toLowerCase()) || element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
                             (element.sizeList.contains(_filterSize) || _filterSize == "Любой")
                                 && (element.brand == _filterBrand || _filterBrand == "Любой")
                                 && (element.material == _filterMaterial || _filterMaterial == "Любой")
@@ -353,11 +351,11 @@ class CatalogScreenState extends State<CatalogScreen> {
                     (index) {
                       List<CatalogItem> catalogFiltered = List.from(
                           viewModel.catalog.where((element) =>
-                              (element.categories.contains(_selectedCategory) ||
-                                  _selectedCategory == "Популярное") &&
-                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой")
-                              && (element.brand == _filterBrand || _filterBrand == "Любой")
-                              && (element.material == _filterMaterial || _filterMaterial == "Любой")));
+                              (element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное") &&
+                                  (element.name.toLowerCase().contains(_searchText.toLowerCase()) || element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
+                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой") &&
+                                  (element.brand == _filterBrand || _filterBrand == "Любой") &&
+                                  (element.material == _filterMaterial || _filterMaterial == "Любой")));
 
                       return AppItem(
                         label: catalogFiltered[index].name,
