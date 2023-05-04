@@ -21,6 +21,7 @@ class AppTextField extends StatelessWidget {
   final TextStyle textStyle;
   final TextAlign textAlign;
   final TextEditingController? textEditingController;
+  final bool readOnly;
 
   const AppTextField({
     super.key,
@@ -31,6 +32,7 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.hintText = "",
+    this.readOnly = false,
     this.hintStyle = const TextStyle(
       color: AppColors.hintColor
     ),
@@ -60,6 +62,7 @@ class AppTextField extends StatelessWidget {
       maxLines: maxLines,
       minLines: minLines,
       maxLength: maxLength,
+      readOnly: readOnly,
       controller: textEditingController,
       style: textStyle,
       textAlign: textAlign,

@@ -20,7 +20,19 @@ class CatalogScreen extends StatefulWidget {
 class CatalogScreenState extends State<CatalogScreen> {
   late CatalogViewModel viewModel;
 
+  final TextEditingController _brandEditingController = TextEditingController();
+
+  final List<String> _brandList = [
+    "Любой",
+    "Компания",
+    "Компания 1",
+    "Компания 2",
+    "Компания 3",
+    "Компания 4",
+  ];
+
   final List<String> _sizeList = [
+    "Любой",
     "9",
     "10",
     "11",
@@ -33,16 +45,19 @@ class CatalogScreenState extends State<CatalogScreen> {
     "18"
   ];
 
+  String _searchText = "";
+
+  String _filterBrand = "Любой";
+  String _filterSize = "Любой";
+
   @override
   void initState() {
     super.initState();
 
     viewModel = Provider.of<CatalogViewModel>(context, listen: false);
+
+    _brandEditingController.text = _filterBrand;
   }
-
-  String _searchText = "";
-
-  String _filterSize = "";
 
   String _selectedCategory = "Популярное";
   final List<String> _categoryList = [
@@ -129,12 +144,47 @@ class CatalogScreenState extends State<CatalogScreen> {
                                                       _filterSize =
                                                           _sizeList[index];
                                                     });
+
+                                                    setState(() {});
                                                   },
                                                   isSelected: _filterSize ==
                                                       _sizeList[index]);
                                             },
                                           ),
                                         ),
+                                        SizedBox(height: 4),
+                                        AppTextField(
+                                          onChanged: (text) {},
+                                          textEditingController: _brandEditingController,
+                                          readOnly: true,
+                                          suffixIcon: DropdownButtonHideUnderline(
+                                            child: DropdownButton<String>(
+                                              dropdownColor: Colors.white,
+                                              icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
+                                              onChanged: (item) {
+                                                setModalState(() {
+                                                  _filterBrand = item.toString();
+
+                                                  _brandEditingController.text = item.toString();
+                                                });
+
+                                                setState(() {});
+                                              },
+                                              items: _brandList.map((String i) {
+                                                return DropdownMenuItem<String>(
+                                                  value: i,
+                                                    child: Text(
+                                                      i,
+                                                      style: TextStyle(
+                                                        fontSize: 14
+                                                      ),
+                                                    )
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 16),
                                         Row(
                                           children: [
                                             Expanded(
@@ -205,16 +255,14 @@ class CatalogScreenState extends State<CatalogScreen> {
                             element.name
                                 .toLowerCase()
                                 .contains(_searchText.toLowerCase()) &&
-                            element.sizeList.contains(_filterSize))
+                            (element.sizeList.contains(_filterSize) || _filterSize == "Любой"))
                         .length,
                     (index) {
                       List<CatalogItem> catalogFiltered = List.from(
                           viewModel.catalog.where((element) =>
                               (element.categories.contains(_selectedCategory) ||
                                   _selectedCategory == "Популярное") &&
-                              element.name
-                                  .toLowerCase()
-                                  .contains(_searchText.toLowerCase())));
+                                  (element.sizeList.contains(_filterSize) || _filterSize == "Любой")));
 
                       return AppItem(
                         label: catalogFiltered[index].name,
