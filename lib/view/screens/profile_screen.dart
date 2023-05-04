@@ -22,6 +22,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   String _firstName = "";
   String _lastName = "";
   String _patronymic = "";
+  String _email = "";
 
   late Future<bool> getData;
 
@@ -29,6 +30,7 @@ class ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _patronymicController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   void initState() {
@@ -60,6 +62,9 @@ class ProfileScreenState extends State<ProfileScreen> {
 
         _patronymic = user.patronymic;
         _patronymicController.text = _patronymic;
+
+        _email = user.email;
+        _emailController.text = _email;
       }
 
       return true;
@@ -132,7 +137,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               },
                               textEditingController: _lastNameController,
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 8),
                             Padding(
                               padding: EdgeInsets.only(left: 12),
                               child: RichText(
@@ -159,7 +164,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                               },
                               textEditingController: _firstNameController,
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 8),
                             const Padding(
                               padding: EdgeInsets.only(left: 12),
                               child: Text("Отчество",
@@ -177,7 +182,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   });
                                 },
                                 textEditingController: _patronymicController),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: 8),
                             Padding(
                               padding: EdgeInsets.only(left: 12),
                               child: RichText(
@@ -206,6 +211,37 @@ class ProfileScreenState extends State<ProfileScreen> {
                               prefixText: "+7 ",
                               maxLength: 10,
                               textEditingController: _phoneController,
+                              textInputType: TextInputType.number,
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: EdgeInsets.only(left: 12),
+                              child: RichText(
+                                  text: const TextSpan(children: [
+                                    TextSpan(
+                                        text: "Эл. почта ",
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: AppColors.hintColor)),
+                                    TextSpan(
+                                        text: "*",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.red))
+                                  ])),
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            AppTextField(
+                              onChanged: (text) {
+                                setState(() {
+                                  _email = text;
+                                });
+                              },
+                              hintText: "mail@example.com",
+                              textEditingController: _emailController,
+                              textCapitalization: TextCapitalization.none,
+                              textInputType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 32),
                             Row(
@@ -213,16 +249,18 @@ class ProfileScreenState extends State<ProfileScreen> {
                                 Expanded(
                                     child: AppButton(
                                   label: "Сохранить",
-                                  onTap: RegExp(r'^[0-9]{10}$')
-                                              .hasMatch(_phone) &&
-                                          _firstName.trim().isNotEmpty &&
-                                          _lastName.trim().isNotEmpty
+                                  onTap: RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                                      _firstName.trim().isNotEmpty &&
+                                      _lastName.trim().isNotEmpty &&
+                                      RegExp(r'^[a-zA-Z0-9]+\.?[a-zA-Z0-9]*@[a-zA-Z0-9]+\.[a-zA-Z]+\.?[a-zA-Z]*$').hasMatch(_email)
                                       ? () async {
                                           await DataSaver().saveUserData(User(
-                                              firstName: _firstName,
-                                              lastName: _lastName,
-                                              patronymic: _patronymic,
-                                              phone: _phone));
+                                            firstName: _firstName,
+                                            lastName: _lastName,
+                                            patronymic: _patronymic,
+                                            phone: _phone,
+                                            email: _email,
+                                          ));
 
                                           final snackBar = SnackBar(
                                               shape: AppShapes.roundedRectangleShape,
@@ -236,7 +274,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                                   background:
                                       RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
                                               _firstName.trim().isNotEmpty &&
-                                              _lastName.trim().isNotEmpty
+                                              _lastName.trim().isNotEmpty &&
+                                              RegExp(r'^[a-zA-Z0-9]+\.?[a-zA-Z0-9]*@[a-zA-Z0-9]+\.[a-zA-Z]+\.?[a-zA-Z]*$').hasMatch(_email)
                                           ? AppColors.primary
                                           : AppColors.primary.withOpacity(0.5),
                                 )),

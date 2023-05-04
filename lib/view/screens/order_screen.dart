@@ -29,7 +29,7 @@ class OrderScreenState extends State<OrderScreen> {
   late OrderViewModel viewModel;
 
   String _name = "";
-  String _mail = "";
+  String _email = "";
   String _phone = "";
   String _promo = "";
   String _address = "";
@@ -41,6 +41,7 @@ class OrderScreenState extends State<OrderScreen> {
   late Future<bool> getData;
 
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
@@ -76,6 +77,9 @@ class OrderScreenState extends State<OrderScreen> {
       if (user != null) {
         _name = user.firstName + " " + user.lastName;
         _nameController.text = _name;
+
+        _email = user.email;
+        _emailController.text = _email;
       }
 
       return true;
@@ -89,7 +93,7 @@ class OrderScreenState extends State<OrderScreen> {
         statusBarColor: Colors.white,
         systemNavigationBarColor: _name.trim().isNotEmpty &&
                             _phone.trim().isNotEmpty &&
-                            _mail.trim().isNotEmpty &&
+                            _email.trim().isNotEmpty &&
                             _selectedPaymentMethod != -1 &&
                             _address != ""
                         ? AppColors.primary : const Color.fromARGB(255, 183, 183, 183),
@@ -206,6 +210,7 @@ class OrderScreenState extends State<OrderScreen> {
                                   });
                                 },
                                 textEditingController: _phoneController,
+                                textInputType: TextInputType.number,
                               ),
                               SizedBox(height: 8),
                               RichText(
@@ -226,9 +231,11 @@ class OrderScreenState extends State<OrderScreen> {
                               AppTextField(
                                 onChanged: (text) {
                                   setState(() {
-                                    _mail = text;
+                                    _email = text;
                                   });
                                 },
+                                textEditingController: _emailController,
+                                textInputType: TextInputType.emailAddress,
                               ),
                               SizedBox(height: 16),
                               const Text(
@@ -341,10 +348,11 @@ class OrderScreenState extends State<OrderScreen> {
                 child: Card(
                   margin: EdgeInsets.zero,
                   color: _name.trim().isNotEmpty &&
-                          _phone.trim().isNotEmpty &&
-                          _mail.trim().isNotEmpty &&
+                          RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                          _email.trim().isNotEmpty &&
                           _selectedPaymentMethod != -1 &&
-                          _address != ""
+                          _address != "" &&
+                          RegExp(r'^[a-zA-Z0-9]+\.?[a-zA-Z0-9]*@[a-zA-Z0-9]+\.[a-zA-Z]+\.?[a-zA-Z]*$').hasMatch(_email)
                       ? AppColors.primary
                       : Color.fromARGB(255, 183, 183, 183),
                   elevation: 0,
@@ -352,10 +360,11 @@ class OrderScreenState extends State<OrderScreen> {
                       borderRadius: BorderRadius.circular(0)),
                   child: InkWell(
                     onTap: _name.trim().isNotEmpty &&
-                            _phone.trim().isNotEmpty &&
-                            _mail.trim().isNotEmpty &&
+                            RegExp(r'^[0-9]{10}$').hasMatch(_phone) &&
+                            _email.trim().isNotEmpty &&
                             _selectedPaymentMethod != -1 &&
-                            _address != ""
+                            _address != "" &&
+                            RegExp(r'^[a-zA-Z0-9]+\.?[a-zA-Z0-9]*@[a-zA-Z0-9]+\.[a-zA-Z]+\.?[a-zA-Z]*$').hasMatch(_email)
                         ? () {}
                         : null,
                     child: Padding(

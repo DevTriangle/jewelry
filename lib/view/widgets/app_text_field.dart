@@ -23,6 +23,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? textEditingController;
   final bool readOnly;
   final Function()? onTap;
+  final TextCapitalization textCapitalization;
 
   const AppTextField({
     super.key,
@@ -53,13 +54,14 @@ class AppTextField extends StatelessWidget {
     ),
     this.textAlign = TextAlign.start,
     this.textEditingController,
-    this.onTap
+    this.onTap,
+    this.textCapitalization = TextCapitalization.sentences
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      textCapitalization: TextCapitalization.sentences,
+      textCapitalization: textCapitalization,
       onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
