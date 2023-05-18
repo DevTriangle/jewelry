@@ -21,8 +21,7 @@ class CatalogScreenState extends State<CatalogScreen> {
   late CatalogViewModel viewModel;
 
   final TextEditingController _brandEditingController = TextEditingController();
-  final TextEditingController _materialEditingController =
-      TextEditingController();
+  final TextEditingController _materialEditingController = TextEditingController();
 
   final List<String> _brandList = [
     "Любой",
@@ -34,29 +33,9 @@ class CatalogScreenState extends State<CatalogScreen> {
     "brand",
   ];
 
-  final List<String> _sizeList = [
-    "Любой",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13.5",
-    "14",
-    "15.5",
-    "16",
-    "17",
-    "18"
-  ];
+  final List<String> _sizeList = ["Любой", "9", "10", "11", "12", "13.5", "14", "15.5", "16", "17", "18"];
 
-  final List<String> _materialList = [
-    "Любой",
-    "Золото",
-    "Серебро",
-    "Платина",
-    "Бронза",
-    "Медь",
-    "Позолота"
-  ];
+  final List<String> _materialList = ["Любой", "Золото", "Серебро", "Платина", "Бронза", "Медь", "Позолота"];
 
   String _searchText = "";
 
@@ -75,13 +54,7 @@ class CatalogScreenState extends State<CatalogScreen> {
   }
 
   String _selectedCategory = "Популярное";
-  final List<String> _categoryList = [
-    "Популярное",
-    "Золото",
-    "Серебро",
-    "Платина",
-    "Позолота"
-  ];
+  final List<String> _categoryList = ["Популярное", "Золото", "Серебро", "Платина", "Позолота"];
 
   @override
   Widget build(BuildContext context) {
@@ -124,11 +97,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     },
                     icon: Icon(
                       Icons.filter_alt_rounded,
-                      color: _filterSize == "Любой" &&
-                              _filterBrand == "Любой" &&
-                              _filterMaterial == "Любой"
-                          ? AppColors.iconColor
-                          : AppColors.primary,
+                      color: _filterSize == "Любой" && _filterBrand == "Любой" && _filterMaterial == "Любой" ? AppColors.iconColor : AppColors.primary,
                     ),
                   ),
                 ]),
@@ -145,8 +114,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                               _selectedCategory = _categoryList[index];
                             });
                           },
-                          isSelected:
-                              _selectedCategory == _categoryList[index]);
+                          isSelected: _selectedCategory == _categoryList[index]);
                     },
                   ),
                 ),
@@ -169,38 +137,21 @@ class CatalogScreenState extends State<CatalogScreen> {
                   children: List.generate(
                     viewModel.catalog
                         .where((element) =>
-                            (element.categories.contains(_selectedCategory) ||
-                                _selectedCategory == "Популярное") &&
-                            (element.name
-                                    .toLowerCase()
-                                    .contains(_searchText.toLowerCase()) ||
-                                element.shortDesc
-                                    .toLowerCase()
-                                    .contains(_searchText.toLowerCase())) &&
-                            (element.sizeList.contains(_filterSize) ||
-                                _filterSize == "Любой") &&
-                            (element.brand == _filterBrand ||
-                                _filterBrand == "Любой") &&
-                            (element.material == _filterMaterial ||
-                                _filterMaterial == "Любой"))
+                            (element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное") &&
+                            (element.name.toLowerCase().contains(_searchText.toLowerCase()) ||
+                                element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
+                            (element.sizeList.contains(_filterSize) || _filterSize == "Любой") &&
+                            (element.brand == _filterBrand || _filterBrand == "Любой") &&
+                            (element.material == _filterMaterial || _filterMaterial == "Любой"))
                         .length,
                     (index) {
-                      List<CatalogItem> catalogFiltered = List.from(
-                          viewModel.catalog.where((element) =>
-                              (element.categories.contains(_selectedCategory) ||
-                                  _selectedCategory == "Популярное") &&
-                              (element.name
-                                      .toLowerCase()
-                                      .contains(_searchText.toLowerCase()) ||
-                                  element.shortDesc
-                                      .toLowerCase()
-                                      .contains(_searchText.toLowerCase())) &&
-                              (element.sizeList.contains(_filterSize) ||
-                                  _filterSize == "Любой") &&
-                              (element.brand == _filterBrand ||
-                                  _filterBrand == "Любой") &&
-                              (element.material == _filterMaterial ||
-                                  _filterMaterial == "Любой")));
+                      List<CatalogItem> catalogFiltered = List.from(viewModel.catalog.where((element) =>
+                          (element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное") &&
+                          (element.name.toLowerCase().contains(_searchText.toLowerCase()) ||
+                              element.shortDesc.toLowerCase().contains(_searchText.toLowerCase())) &&
+                          (element.sizeList.contains(_filterSize) || _filterSize == "Любой") &&
+                          (element.brand == _filterBrand || _filterBrand == "Любой") &&
+                          (element.material == _filterMaterial || _filterMaterial == "Любой")));
 
                       return AppItem(
                         label: catalogFiltered[index].name,
@@ -216,11 +167,9 @@ class CatalogScreenState extends State<CatalogScreen> {
                                     id: catalogFiltered[index].id,
                                     name: catalogFiltered[index].name,
                                     shortDesc: catalogFiltered[index].shortDesc,
-                                    description:
-                                        catalogFiltered[index].description,
+                                    description: catalogFiltered[index].description,
                                     price: catalogFiltered[index].price,
-                                    categories:
-                                        catalogFiltered[index].categories,
+                                    categories: catalogFiltered[index].categories,
                                     sizeList: catalogFiltered[index].sizeList,
                                     brand: catalogFiltered[index].brand,
                                     weight: catalogFiltered[index].weight,
@@ -261,8 +210,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                       children: [
                         Text(
                           "Фильтры",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                           textAlign: TextAlign.center,
                         ),
                         AppTextButton(
@@ -281,10 +229,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     SizedBox(height: 16),
                     Text(
                       "Размер",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(0.6)),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                     ),
                     Container(
                       height: 58,
@@ -308,10 +253,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     SizedBox(height: 4),
                     Text(
                       "Бренд",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(0.6)),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                     ),
                     SizedBox(height: 4),
                     AppTextField(
@@ -323,8 +265,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             dropdownColor: Colors.white,
-                            icon: Icon(Icons.arrow_drop_down_rounded,
-                                color: AppColors.iconColor),
+                            icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
                             onChanged: (item) {
                               setModalState(() {
                                 _filterBrand = item.toString();
@@ -349,10 +290,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                     SizedBox(height: 4),
                     Text(
                       "Материал",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black.withOpacity(0.6)),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                     ),
                     SizedBox(height: 4),
                     AppTextField(
@@ -364,14 +302,12 @@ class CatalogScreenState extends State<CatalogScreen> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             dropdownColor: Colors.white,
-                            icon: Icon(Icons.arrow_drop_down_rounded,
-                                color: AppColors.iconColor),
+                            icon: Icon(Icons.arrow_drop_down_rounded, color: AppColors.iconColor),
                             onChanged: (item) {
                               setModalState(() {
                                 _filterMaterial = item.toString();
 
-                                _materialEditingController.text =
-                                    item.toString();
+                                _materialEditingController.text = item.toString();
                               });
 
                               setState(() {});
@@ -403,6 +339,7 @@ class CatalogScreenState extends State<CatalogScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),

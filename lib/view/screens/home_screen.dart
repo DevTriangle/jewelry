@@ -62,7 +62,7 @@ class HomeScreenState extends State<HomeScreen> {
                   Container(
                     constraints: BoxConstraints(maxHeight: 400),
                     child: AspectRatio(
-                      aspectRatio: 16 / 9,
+                      aspectRatio: 1369 / 500,
                       child: PageView.builder(
                           itemCount: 2,
                           controller: _controller,
@@ -74,9 +74,9 @@ class HomeScreenState extends State<HomeScreen> {
                               clipBehavior: Clip.antiAlias,
                               color: Colors.transparent,
                               child: CachedNetworkImage(
-                                imageUrl:
-                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
+                                imageUrl: "https://g2.sunlight.net/media/catbans/2ee79ac2cd87a76f644322d355290fa880bc1e51.jpg",
                                 fit: BoxFit.cover,
+                                alignment: Alignment.centerLeft,
                               ),
                             );
                           }),

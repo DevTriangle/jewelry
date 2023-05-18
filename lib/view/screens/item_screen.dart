@@ -161,7 +161,7 @@ class ItemScreenState extends State<ItemScreen> {
                                         setState(() {});
                                       },
                                       label: index == -1 ? "Добавить в корзину (${widget.item.price} ₽)" : "Убрать из корзины",
-                                      contentPadding: const EdgeInsets.all(14),
+                                      contentPadding: const EdgeInsets.all(16),
                                     );
                                   },
                                 ),

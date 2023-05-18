@@ -15,8 +15,7 @@ class AppTextButton extends StatelessWidget {
   const AppTextButton({
     super.key,
     required this.onTap,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
     required this.label,
     this.style = const TextStyle(color: AppColors.primary, fontSize: 16),
     this.textAlign = TextAlign.center,
@@ -56,8 +55,7 @@ class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
     this.onTap,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
     this.background = AppColors.primary,
     required this.label,
     this.style = const TextStyle(color: Colors.white, fontSize: 16),
