@@ -57,18 +57,21 @@ class ItemScreenState extends State<ItemScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AspectRatio(
-                            aspectRatio: 1.4,
-                            child: CachedNetworkImage(
-                              imageUrl: widget.item.image,
-                              fit: BoxFit.cover,
+                    Container(
+                      constraints: BoxConstraints(maxHeight: 400),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AspectRatio(
+                              aspectRatio: 1.4,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.item.image,
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -78,8 +81,7 @@ class ItemScreenState extends State<ItemScreen> {
                           const SizedBox(height: 5),
                           Text(
                             widget.item.name,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w500),
+                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(height: 5),
                           Row(
@@ -87,10 +89,7 @@ class ItemScreenState extends State<ItemScreen> {
                             children: [
                               Text(
                                 "Оценка: ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                               ),
                               Builder(builder: (builder) {
                                 List<Widget> widgets = [];
@@ -98,13 +97,11 @@ class ItemScreenState extends State<ItemScreen> {
                                 for (int i = 1; i <= 5; i++) {
                                   if (i <= widget.item.rating) {
                                     widgets.add(
-                                      const Icon(Icons.star_rounded,
-                                          color: Colors.amber),
+                                      const Icon(Icons.star_rounded, color: Colors.amber),
                                     );
                                   } else {
                                     widgets.add(
-                                      const Icon(Icons.star_rounded,
-                                          color: AppColors.cardColor),
+                                      const Icon(Icons.star_rounded, color: AppColors.cardColor),
                                     );
                                   }
                                 }
@@ -117,14 +114,7 @@ class ItemScreenState extends State<ItemScreen> {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          Text(
-                            "Размер",
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black.withOpacity(0.6)
-                            )
-                          ),
+                          Text("Размер", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6))),
                           Container(
                             height: 58,
                             child: ListView.builder(
@@ -183,17 +173,11 @@ class ItemScreenState extends State<ItemScreen> {
                             text: TextSpan(children: [
                               TextSpan(
                                 text: "Бренд: ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                               ),
                               TextSpan(
                                 text: "${widget.item.brand}",
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ]),
                           ),
@@ -202,17 +186,11 @@ class ItemScreenState extends State<ItemScreen> {
                             text: TextSpan(children: [
                               TextSpan(
                                 text: "Материал: ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                               ),
                               TextSpan(
                                 text: "${widget.item.material}",
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ]),
                           ),
@@ -221,47 +199,29 @@ class ItemScreenState extends State<ItemScreen> {
                             text: TextSpan(children: [
                               TextSpan(
                                 text: "Вес изделия: ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                               ),
                               TextSpan(
                                 text: "${widget.item.weight}г",
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ]),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             widget.item.description,
-                            style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                                height: 1.3),
+                            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black, height: 1.3),
                           ),
                           const SizedBox(height: 16),
                           RichText(
                             text: TextSpan(children: [
                               TextSpan(
                                 text: "Категории: ",
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black.withOpacity(0.6)),
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: Colors.black.withOpacity(0.6)),
                               ),
                               TextSpan(
-                                text: widget.item.categories
-                                    .toString()
-                                    .replaceAll(RegExp(r'\[*\]*'), ""),
-                                style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black),
+                                text: widget.item.categories.toString().replaceAll(RegExp(r'\[*\]*'), ""),
+                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.black),
                               ),
                             ]),
                           ),
@@ -277,8 +237,7 @@ class ItemScreenState extends State<ItemScreen> {
                   margin: const EdgeInsets.all(8),
                   elevation: 0,
                   color: Colors.black.withOpacity(0.6),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                   clipBehavior: Clip.antiAlias,
                   child: InkWell(
                     onTap: () {

@@ -33,25 +33,15 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   String _selectedCategory = "Популярное";
-  final List<String> _categoryList = [
-    "Популярное",
-    "Золото",
-    "Серебро",
-    "Платина",
-    "Позолота"
-  ];
+  final List<String> _categoryList = ["Популярное", "Золото", "Серебро", "Платина", "Позолота"];
 
   Future<void> startTimer() async {
     timer = Timer.periodic(const Duration(seconds: 8), (t) {
       if (_controller.page != null) {
         if (_controller.page! < 1) {
-          _controller.animateToPage(_controller.page!.toInt() + 1,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut);
+          _controller.animateToPage(_controller.page!.toInt() + 1, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
         } else {
-          _controller.animateToPage(0,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut);
+          _controller.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
         }
       }
     });
@@ -69,25 +59,28 @@ class HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: PageView.builder(
-                        itemCount: 2,
-                        controller: _controller,
-                        itemBuilder: (itemBuilder, index) {
-                          return Card(
-                            elevation: 0,
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            shape: AppShapes.roundedRectangleShape,
-                            clipBehavior: Clip.antiAlias,
-                            color: Colors.transparent,
-                            child: CachedNetworkImage(
-                              imageUrl:
-                                  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }),
+                  Container(
+                    constraints: BoxConstraints(maxHeight: 400),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: PageView.builder(
+                          itemCount: 2,
+                          controller: _controller,
+                          itemBuilder: (itemBuilder, index) {
+                            return Card(
+                              elevation: 0,
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              shape: AppShapes.roundedRectangleShape,
+                              clipBehavior: Clip.antiAlias,
+                              color: Colors.transparent,
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Aspect_ratio_-_16x9.svg/2560px-Aspect_ratio_-_16x9.svg.png",
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          }),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -96,8 +89,7 @@ class HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 16),
                         const Text(
                           "Каталог",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(height: 16),
                         SizedBox(
@@ -113,8 +105,7 @@ class HomeScreenState extends State<HomeScreen> {
                                       _selectedCategory = _categoryList[index];
                                     });
                                   },
-                                  isSelected: _selectedCategory ==
-                                      _categoryList[index]);
+                                  isSelected: _selectedCategory == _categoryList[index]);
                             },
                           ),
                         ),
@@ -128,16 +119,10 @@ class HomeScreenState extends State<HomeScreen> {
                             physics: const NeverScrollableScrollPhysics(),
                             children: List.generate(
                                 viewModel.catalog
-                                    .where((element) =>
-                                        element.categories
-                                            .contains(_selectedCategory) ||
-                                        _selectedCategory == "Популярное")
+                                    .where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное")
                                     .length, (index) {
                               List<CatalogItem> catalogFiltered = List.from(
-                                  viewModel.catalog.where((element) =>
-                                      element.categories
-                                          .contains(_selectedCategory) ||
-                                      _selectedCategory == "Популярное"));
+                                  viewModel.catalog.where((element) => element.categories.contains(_selectedCategory) || _selectedCategory == "Популярное"));
                               return AppItem(
                                   label: catalogFiltered[index].name,
                                   description: catalogFiltered[index].shortDesc,
@@ -149,30 +134,16 @@ class HomeScreenState extends State<HomeScreen> {
                                         MaterialPageRoute(
                                             builder: (builder) => ItemScreen(
                                                 item: CatalogItem(
-                                                    id: catalogFiltered[index]
-                                                        .id,
-                                                    name: catalogFiltered[index]
-                                                        .name,
-                                                    shortDesc:
-                                                        catalogFiltered[index]
-                                                            .shortDesc,
-                                                    description:
-                                                        catalogFiltered[index]
-                                                            .description,
-                                                    price: catalogFiltered[index]
-                                                        .price,
-                                                    categories:
-                                                        catalogFiltered[index]
-                                                            .categories,
-                                                    sizeList:
-                                                        catalogFiltered[index]
-                                                            .sizeList,
-                                                    brand: catalogFiltered[index]
-                                                        .brand,
-                                                    weight: catalogFiltered[index]
-                                                        .weight,
-                                                    rating: catalogFiltered[index]
-                                                        .rating,
+                                                    id: catalogFiltered[index].id,
+                                                    name: catalogFiltered[index].name,
+                                                    shortDesc: catalogFiltered[index].shortDesc,
+                                                    description: catalogFiltered[index].description,
+                                                    price: catalogFiltered[index].price,
+                                                    categories: catalogFiltered[index].categories,
+                                                    sizeList: catalogFiltered[index].sizeList,
+                                                    brand: catalogFiltered[index].brand,
+                                                    weight: catalogFiltered[index].weight,
+                                                    rating: catalogFiltered[index].rating,
                                                     material: catalogFiltered[index].material,
                                                     image: catalogFiltered[index].image))));
                                   });
