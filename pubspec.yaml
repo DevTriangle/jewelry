@@ -16,6 +16,8 @@ dependencies:
   http: ^0.13.5
   shared_preferences: ^2.0.20
   flutter_secure_storage: ^8.0.0
+  flutter_localizations:
+    sdk: flutter
   intl: any
   msix: ^3.12.3
 
@@ -42,3 +44,11 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+msix_config:
+  display_name: Jewelry
+  publisher_display_name: Jewelry
+  identity_name: company.suite.jewelry
+  msix_version: 1.0.0.0
+  certificate_path: C:\Users\alber\CERTIFICATE.pfx
+  certificate_password: JewelryPassword
